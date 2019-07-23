@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace SD2411.KPI2019.Web.Pages
+namespace SD2411.KPI2019.Host.Pages
 {
-    public class PrivacyModel : PageModel
+    public class IndexModel : PageModel
     {
         public void OnGet()
         {
+
         }
     }
 }

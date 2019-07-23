@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace SD2411.KPI2019.Web
+namespace SD2411.KPI2019.Host
 {
     public class Program
     {

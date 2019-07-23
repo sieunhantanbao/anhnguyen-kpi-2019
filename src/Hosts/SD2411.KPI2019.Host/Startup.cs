@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace SD2411.KPI2019.Web
+namespace SD2411.KPI2019.Host
 {
     public class Startup
     {
