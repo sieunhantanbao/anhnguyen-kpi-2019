@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SD2411.KPI2019.Infrastructure.Model.Entity
 {
-    public interface IEntityWithTypeId<TId>
+    public interface IEntityWithTypedId<TId>
     {
         TId Id { get;}
     }

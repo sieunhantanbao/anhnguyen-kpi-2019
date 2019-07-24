@@ -3,8 +3,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:59324",
-      "sslPort": 44373
+      "applicationUrl": "http://localhost:61173",
+      "sslPort": 44305
     }
   },
   "profiles": {
@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "SD2411.KPI2019.Host": {
+    "SD2411.KPI2019.HostStandard": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
@@ -29,11 +29,11 @@
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
       "environmentVariables": {
         "ASPNETCORE_URLS": "https://+:443;http://+:80",
-        "ASPNETCORE_HTTPS_PORT": "44374"
+        "ASPNETCORE_HTTPS_PORT": "44306"
       },
-      "httpPort": 59325,
+      "httpPort": 61174,
       "useSSL": true,
-      "sslPort": 44374
+      "sslPort": 44306
     }
   }
 }

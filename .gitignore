@@ -8,3 +8,7 @@
 .vs/
 /src/Modules/SD2411.KPI2019.Module.Users/obj
 /src/Modules/SD2411.KPI2019.Module.Users/bin
+/src/Hosts/SD2411.KPI2019.HostStandard/obj
+/src/Hosts/SD2411.KPI2019.HostStandard/bin
+/src/Modules/SD2411.KPI2019.Module.Core/obj
+/src/Modules/SD2411.KPI2019.Module.Core/bin

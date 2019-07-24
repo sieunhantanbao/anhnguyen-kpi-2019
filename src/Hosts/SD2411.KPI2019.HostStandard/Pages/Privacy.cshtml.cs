@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace SD2411.KPI2019.Host.Pages
+namespace SD2411.KPI2019.HostStandard.Pages
 {
     public class PrivacyModel : PageModel
     {

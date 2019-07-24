@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SD2411.KPI2019.Infrastructure.Data
 {
-    public interface IRepositoryWithTypedId <T, TId> where T: IEntityWithTypeId<TId>
+    public interface IRepositoryWithTypedId <T, TId> where T: IEntityWithTypedId<TId>
     {
         IQueryable<T> Query();
 

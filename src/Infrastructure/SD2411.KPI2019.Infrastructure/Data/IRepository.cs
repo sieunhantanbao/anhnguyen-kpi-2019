@@ -2,7 +2,7 @@
 
 namespace SD2411.KPI2019.Infrastructure.Data
 {
-    public interface IRepository <T>: IRepositoryWithTypedId <T, int> where T: IEntityWithTypeId<int>
+    public interface IRepository <T>: IRepositoryWithTypedId <T, int> where T: IEntityWithTypedId<int>
     {
     }
 }
