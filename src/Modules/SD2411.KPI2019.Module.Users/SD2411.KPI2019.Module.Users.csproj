@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Infrastructure\SD2411.KPI2019.Infrastructure\SD2411.KPI2019.Infrastructure.csproj" />
+    <ProjectReference Include="..\SD2411.KPI2019.Module.Core\SD2411.KPI2019.Module.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,6 +16,10 @@
     <Reference Include="Microsoft.AspNetCore.Http.Abstractions">
       <HintPath>C:\Program Files\dotnet\packs\Microsoft.AspNetCore.App.Ref\3.0.0-preview6.19307.2\ref\netcoreapp3.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>
