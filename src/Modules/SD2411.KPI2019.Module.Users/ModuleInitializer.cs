@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using SD2411.KPI2019.Infrastructure.Modules;
+using SD2411.KPI2019.Module.Users.Data;
+using SD2411.KPI2019.Module.Users.Services;
 using System;
 
 namespace SD2411.KPI2019.Module.Users
@@ -10,12 +12,13 @@ namespace SD2411.KPI2019.Module.Users
     {
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            throw new NotImplementedException();
+            
         }
 
-        public void ConfigureServices(IServiceCollection serviceCollection)
+        public void ConfigureServices(IServiceCollection services)
         {
-            throw new NotImplementedException();
+            //services.AddSingleton(typeof(IUserRepository), typeof(UserRepository));
+            //services.AddSingleton(typeof(IUserService), typeof(UserService));
         }
     }
 }

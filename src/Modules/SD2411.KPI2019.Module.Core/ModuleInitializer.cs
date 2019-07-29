@@ -10,12 +10,12 @@ namespace SD2411.KPI2019.Module.Core
     {
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            throw new NotImplementedException();
+            // throw new NotImplementedException();
         }
 
         public void ConfigureServices(IServiceCollection serviceCollection)
         {
-            throw new NotImplementedException();
+            // throw new NotImplementedException();
         }
     }
 }
