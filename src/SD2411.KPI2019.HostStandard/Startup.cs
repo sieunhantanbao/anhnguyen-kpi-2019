@@ -16,6 +16,8 @@ using Microsoft.EntityFrameworkCore;
 using SD2411.KPI2019.Infrastructure.Data;
 using SD2411.KPI2019.Infrastructure.Modules;
 using System.IO;
+using Microsoft.OpenApi.Models;
+using SD2411.KPI2019.HostStandard.Extension;
 
 namespace SD2411.KPI2019.HostStandard
 {
@@ -55,6 +57,9 @@ namespace SD2411.KPI2019.HostStandard
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient(typeof(IRepositoryWithTypedId<,>), typeof(RepositoryWithTypeId<,>));
 
+            // Add Custome MVC (API for all modules)
+            services.AddCustomizedMvc(GlobalConfiguration.Modules);
+
             // Register services from Module
             var sp = services.BuildServiceProvider();
             var moduleInitilizers = sp.GetServices<IModuleInitializer>();
@@ -63,8 +68,11 @@ namespace SD2411.KPI2019.HostStandard
                 moduleInitilizer.ConfigureServices(services);
             }
 
-            //Will remove this
-            services.AddRazorPages();
+            // Add Swagger
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "SD2411 KPI API", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -90,16 +98,21 @@ namespace SD2411.KPI2019.HostStandard
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapRazorPages();
-            });
-
             var moduleInitializers = app.ApplicationServices.GetServices<IModuleInitializer>();
             foreach (var moduleInitializer in moduleInitializers)
             {
                 moduleInitializer.Configure(app, env);
             }
+            // Use Custom MVC (API) modules
+            app.UseCustomizedMvc();
+
+            // Use Swagger
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "SD2411 KPI V1 Docs");
+
+            });
         }
     }
 }

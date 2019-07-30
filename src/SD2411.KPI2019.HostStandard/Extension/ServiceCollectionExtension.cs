@@ -1,14 +1,18 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
+using SD2411.KPI2019.Infrastructure;
 using SD2411.KPI2019.Infrastructure.Modules;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
+using System.Threading.Tasks;
 
-namespace SD2411.KPI2019.Infrastructure.Extensions
+namespace SD2411.KPI2019.HostStandard.Extension
 {
     public static class ServiceCollectionExtension
     {
@@ -38,6 +42,21 @@ namespace SD2411.KPI2019.Infrastructure.Extensions
             return services;
         }
 
+        public static IServiceCollection AddCustomizedMvc(this IServiceCollection services, IList<ModuleInfo> modules)
+        {
+            var mvcBuilder = services
+                .AddMvc(o =>
+                {
+                    o.EnableEndpointRouting = false;
+                });
+            foreach (var module in modules)
+            {
+                AddApplicationPart(mvcBuilder, module.Assembly);
+            }
+            return services;
+        }
+
+        #region Private methods
         private static void RegisterModuleServices(ModuleInfo module, ref IServiceCollection services)
         {
             var moduleInitializerType = module.Assembly.GetTypes()
@@ -47,5 +66,25 @@ namespace SD2411.KPI2019.Infrastructure.Extensions
                 services.AddSingleton(typeof(IModuleInitializer), moduleInitializerType);
             }
         }
+
+        private static void AddApplicationPart(IMvcBuilder mvcBuilder, Assembly assembly)
+        {
+            AddApplicationPart(ref mvcBuilder, assembly);
+            var relatedAssemblies = RelatedAssemblyAttribute.GetRelatedAssemblies(assembly, throwOnError: false);
+            foreach (var relatedAssembly in relatedAssemblies)
+            {
+                AddApplicationPart(ref mvcBuilder, assembly);
+            }
+        }
+
+        private static void AddApplicationPart(ref IMvcBuilder mvcBuilder, Assembly assembly)
+        {
+            var partFactory = ApplicationPartFactory.GetApplicationPartFactory(assembly);
+            foreach (var part in partFactory.GetApplicationParts(assembly))
+            {
+                mvcBuilder.PartManager.ApplicationParts.Add(part);
+            }
+        }
+        #endregion
     }
 }
