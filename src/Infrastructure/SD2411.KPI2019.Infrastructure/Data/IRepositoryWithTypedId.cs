@@ -35,6 +35,6 @@ namespace SD2411.KPI2019.Infrastructure.Data
 
         Task<IDbContextTransaction> BeginTransactionAsync();
 
-        Task SaveChangesAsync();
+        void SaveChanges();
     }
 }

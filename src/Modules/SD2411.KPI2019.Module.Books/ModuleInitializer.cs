@@ -2,23 +2,22 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using SD2411.KPI2019.Infrastructure.Modules;
-using SD2411.KPI2019.Module.Users.Data;
-using SD2411.KPI2019.Module.Users.Services;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace SD2411.KPI2019.Module.Users
+namespace SD2411.KPI2019.Module.Books
 {
     public class ModuleInitializer : IModuleInitializer
     {
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            
+            //throw new NotImplementedException();
         }
 
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection serviceCollection)
         {
-            services.AddTransient(typeof(IUserRepository), typeof(UserRepository));
-            services.AddTransient(typeof(IUserService), typeof(UserService));
+            //throw new NotImplementedException();
         }
     }
 }

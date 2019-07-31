@@ -18,9 +18,7 @@ namespace SD2411.KPI2019.Module.Users.Services
         /// <returns></returns>
         public async Task<UserAccount> CreateUser(UserAccount user)
         {
-            var result = await _repository.AddAsync(user);
-            await _repository.SaveChangesAsync();
-            return result;
+            return await _repository.AddAsync(user);
         }
     }
 }

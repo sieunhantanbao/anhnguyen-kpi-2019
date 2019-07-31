@@ -19,7 +19,7 @@ namespace SD2411.KPI2019.Module.Core.Data
         public RepositoryWithTypeId(SD2411DBContext context)
         {
             Context = context;
-            DbSet = Context.Set<T>();
+            DbSet = context.Set<T>();
         }
         protected DbContext Context { get; }
 
@@ -32,6 +32,7 @@ namespace SD2411.KPI2019.Module.Core.Data
         public virtual async Task<T> AddAsync(T entity)
         {
             await DbSet.AddAsync(entity);
+            SaveChanges();
             return entity;
         }
         /// <summary>
@@ -42,6 +43,7 @@ namespace SD2411.KPI2019.Module.Core.Data
         public virtual async Task AddRangeAsync(IEnumerable<T> entity)
         {
             await DbSet.AddRangeAsync(entity);
+            SaveChanges();
         }
         /// <summary>
         /// Any Entity Async
@@ -178,14 +180,15 @@ namespace SD2411.KPI2019.Module.Core.Data
         public virtual void Remove(T entity)
         {
             DbSet.Remove(entity);
+            SaveChanges();
         }
         /// <summary>
         /// Save change
         /// </summary>
         /// <returns></returns>
-        public virtual async Task SaveChangesAsync()
+        public virtual void SaveChanges()
         {
-            await Context.SaveChangesAsync();
+            Context.SaveChanges();
         }
         /// <summary>
         /// Set Entity State

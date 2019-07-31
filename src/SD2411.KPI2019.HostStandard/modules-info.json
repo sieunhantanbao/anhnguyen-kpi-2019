@@ -6,5 +6,9 @@
     {
         "id": "SD2411.KPI2019.Module.Core",
         "version": "1.0.0"
+    },
+    {
+        "id": "SD2411.KPI2019.Module.Books",
+        "version": "1.0.0"
     }
 ]

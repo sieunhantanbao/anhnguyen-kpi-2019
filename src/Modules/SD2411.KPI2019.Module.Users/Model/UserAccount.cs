@@ -7,6 +7,6 @@ namespace SD2411.KPI2019.Module.Users.Model
 {
     public class UserAccount : EntityBase
     {
-
+        public string UserName { get; set; }
     }
 }

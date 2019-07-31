@@ -38,7 +38,7 @@ namespace SD2411.KPI2019.HostStandard
             GlobalConfiguration.WebRootPath = _hostingEnvironment.WebRootPath;
             GlobalConfiguration.ContentRootPath = _hostingEnvironment.ContentRootPath;
 
-            services.AddSingleton(typeof(DbContext), typeof(SD2411DBContext));
+            services.AddScoped(typeof(DbContext), typeof(SD2411DBContext));
             // Add modules
             services.AddModules(new DirectoryInfo(_hostingEnvironment.ContentRootPath).Parent.FullName);
 
