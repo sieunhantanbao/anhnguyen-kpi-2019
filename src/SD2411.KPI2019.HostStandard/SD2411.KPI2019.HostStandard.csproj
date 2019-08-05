@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\SD2411.KPI2019.Infrastructure\SD2411.KPI2019.Infrastructure.csproj" />
+    <ProjectReference Include="..\Modules\SD2411.KPI2019.Module.BookLending\SD2411.KPI2019.Module.BookLending.csproj" />
     <ProjectReference Include="..\Modules\SD2411.KPI2019.Module.Books\SD2411.KPI2019.Module.Books.csproj" />
     <ProjectReference Include="..\Modules\SD2411.KPI2019.Module.Core\SD2411.KPI2019.Module.Core.csproj" />
     <ProjectReference Include="..\Modules\SD2411.KPI2019.Module.Users\SD2411.KPI2019.Module.Users.csproj" />

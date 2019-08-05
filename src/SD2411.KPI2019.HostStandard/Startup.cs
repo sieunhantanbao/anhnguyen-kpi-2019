@@ -51,8 +51,11 @@ namespace SD2411.KPI2019.HostStandard
 
             // Register database
             services.AddDbContextPool<SD2411DBContext>(options =>
-                options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection")));//,
-                                                                                               //b => b.MigrationsAssembly("SimplCommerce.WebHost")));
+            {
+                options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"),
+                    c => c.MigrationsAssembly("SD2411.KPI2019.HostStandard"));
+            });
+
             // Register common Services
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient(typeof(IRepositoryWithTypedId<,>), typeof(RepositoryWithTypeId<,>));
