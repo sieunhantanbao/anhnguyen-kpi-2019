@@ -12,8 +12,6 @@ namespace SD2411.KPI2019.Module.BookLending.Data
             entity.ToTable("tbl_book_lending");
             entity.HasKey(c => c.Id);
             entity.Property(c => c.Id).HasColumnName("ID").ValueGeneratedOnAdd();
-            entity.Property(c => c.UserId).HasColumnName("USER_ID");
-            entity.Property(c => c.BookId).HasColumnName("BOOK_ID");
             entity.Property(c => c.BorrowDate).HasColumnName("BORROW_DATE");
             entity.Property(c => c.ReturnDate).HasColumnName("RETURN_DATE");
         }

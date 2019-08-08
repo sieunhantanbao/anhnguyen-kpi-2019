@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SD2411.KPI2019.Infrastructure;
 using SD2411.KPI2019.Infrastructure.Data;
 using SD2411.KPI2019.Infrastructure.Model;
 using SD2411.KPI2019.Infrastructure.Model.Entity;
 using SD2411.KPI2019.Infrastructure.Modules;
 using SD2411.KPI2019.Infrastructure.Validation;
+using SD2411.KPI2019.Module.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +17,9 @@ using System.Threading.Tasks;
 
 namespace SD2411.KPI2019.Module.Core.Data
 {
-    public class SD2411DBContext: DbContext
+    public class SD2411DBContext: IdentityDbContext<ApplicationUser>
     {
-        public SD2411DBContext(DbContextOptions options): base(options)
+        public SD2411DBContext(DbContextOptions<SD2411DBContext> options): base(options)
         {
 
         }

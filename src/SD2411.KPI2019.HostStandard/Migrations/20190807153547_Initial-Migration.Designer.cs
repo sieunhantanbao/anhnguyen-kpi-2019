@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SD2411.KPI2019.Module.Core.Data;
 
 namespace SD2411.KPI2019.HostStandard.Migrations
 {
     [DbContext(typeof(SD2411DBContext))]
-    partial class SD2411DBContextModelSnapshot : ModelSnapshot
+    [Migration("20190807153547_Initial-Migration")]
+    partial class InitialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
