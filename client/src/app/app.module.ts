@@ -1,22 +1,53 @@
+import {
+  HttpClientModule
+} from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {StoreModule} from '@ngrx/store';
+import { appModule } from './app.state/app.reducer';
+import { AppSelectors } from './app.state/app.selectors';
+import { EffectsModule } from '@ngrx/effects';
+import { AppEffect } from './app.state/app.effects';
+import { RouterModule, PreloadAllModules } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppRoutes } from './modules/app/app.routing';
+import { Dispatcher } from './modules/app/app.dispatcher';
+import { AuthenticatedLayoutComponent } from './modules/app/layouts/authenticated/authenticated-layout/authenticated-layout.component';
+import { AuthenticatedComponent } from './modules/app/layouts/authenticated/authenticated.component';
+import { GuestComponent } from './modules/app/layouts/guest/guest.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AuthenticatedLayoutComponent,
+    AuthenticatedComponent,
+    GuestComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    BrowserAnimationsModule,
+    RouterModule.forRoot(AppRoutes, {
+      preloadingStrategy: PreloadAllModules}),
+    FormsModule,
+    HttpClientModule,
     StoreModule.forRoot({
-      app:AppComponent
-    })
+      app: appModule
+    }),
+    StoreDevtoolsModule.instrument(
+      {
+        maxAge: 10 //  Buffers the last 10 states
+      }
+    ),
+    EffectsModule.forRoot([AppEffect])
   ],
-  providers: [],
+  providers: [
+    AppSelectors,
+    Dispatcher
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
