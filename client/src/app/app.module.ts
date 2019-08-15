@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {StoreModule} from '@ngrx/store';
 import { appModule } from './app.state/app.reducer';
@@ -16,14 +15,12 @@ import { RouterModule, PreloadAllModules } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutes } from './modules/app/app.routing';
 import { Dispatcher } from './modules/app/app.dispatcher';
-import { AuthenticatedLayoutComponent } from './modules/app/layouts/authenticated/authenticated-layout/authenticated-layout.component';
 import { AuthenticatedComponent } from './modules/app/layouts/authenticated/authenticated.component';
 import { GuestComponent } from './modules/app/layouts/guest/guest.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AuthenticatedLayoutComponent,
     AuthenticatedComponent,
     GuestComponent
   ],
