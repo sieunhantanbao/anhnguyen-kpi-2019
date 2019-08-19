@@ -17,12 +17,20 @@ import { AppRoutes } from './modules/app/app.routing';
 import { Dispatcher } from './modules/app/app.dispatcher';
 import { AuthenticatedComponent } from './modules/app/layouts/authenticated/authenticated.component';
 import { GuestComponent } from './modules/app/layouts/guest/guest.component';
+import { TopNavBarComponent } from './modules/app/layouts/shared-components/top-nav-bar/top-nav-bar.component';
+import { CopyRightComponent } from './modules/app/layouts/shared-components/copy-right/copy-right.component';
+import { AuthenticationService } from './modules/shared/services/authentication.service';
+import { LoginComponent } from './modules/app/layouts/shared-components/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthenticatedComponent,
-    GuestComponent
+    GuestComponent,
+    GuestComponent,
+    TopNavBarComponent,
+    CopyRightComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +51,8 @@ import { GuestComponent } from './modules/app/layouts/guest/guest.component';
   ],
   providers: [
     AppSelectors,
-    Dispatcher
+    Dispatcher,
+    AuthenticationService
   ],
   bootstrap: [AppComponent]
 })

@@ -23,6 +23,8 @@ export class AuthenticationService extends BaseService {
         this.appSelector.token$.subscribe(t => { this.token = t });
         // Subscribe user detail from App Selector
         this.appSelector.userDetail$.subscribe(u => { this.userDetail = u });
+        // New instance of jwt
+        this.jwtHelperService = new JwtHelperService();
     }
 
     // Aquire token from Server 

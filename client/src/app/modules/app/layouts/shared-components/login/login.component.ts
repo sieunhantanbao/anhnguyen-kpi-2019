@@ -1,0 +1,66 @@
+import { Component, OnInit } from '@angular/core';
+import { LoginModel } from 'src/app/modules/shared/models/login.model';
+import { AuthenticationService } from 'src/app/modules/shared/services/authentication.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { SafeUnsubscriber } from 'src/app/modules/shared/utility/safe-unsubscriber';
+import { Subscription } from 'rxjs';
+import { Dispatcher } from '../../../app.dispatcher';
+import { AuthenticationFailedAction, AuthenticationLoginAction, AuthenticationActionNames } from 'src/app/modules/authentication/authentication.state/authentication.actions';
+import { AuthenticationSelectors } from 'src/app/modules/authentication/authentication.state/authentication.selectors';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
+})
+export class LoginComponent extends SafeUnsubscriber implements OnInit {
+
+  constructor(private authService: AuthenticationService,
+    private fb: FormBuilder,
+    private dispatcher: Dispatcher,
+    private authSelector: AuthenticationSelectors) { 
+    super();
+    this.isLoginError = false;
+    this.loginErrorMessage ='';
+  }
+
+  ngOnInit() {
+    this.safeSubscriptions(this.registerSubscriptions());
+    this.buildForm();
+  }
+
+  buildForm(){
+    this.frm = this.fb.group({
+      username: [null, Validators.compose([Validators.required])],
+      password: [null, Validators.compose([Validators.required])]
+    });
+  }
+  registerSubscriptions() : Subscription[]{
+    return [
+      this.authSelector.actionSuccessOfSubtype$(AuthenticationActionNames.LOGIN)
+          .subscribe(() => {
+            // Navigate to Authenticated page
+          })
+    ];
+  }
+
+  public frm: FormGroup;
+  public isLoginError: boolean;
+  public loginErrorMessage: string;
+
+  login(){
+    this.removeLoginError();
+    var loginModel = new LoginModel();
+    loginModel.username = this.frm.value.username;
+    loginModel.password = this.frm.value.password;
+    this.dispatcher.fire(new AuthenticationLoginAction(loginModel));
+  }
+
+  removeLoginError(){
+    this.loginErrorMessage = '';
+    this.isLoginError = false;
+    this.frm.get("username").setErrors({loginFail: null});
+    this.frm.get("password").setErrors({loginFail: null});
+  }
+
+}
