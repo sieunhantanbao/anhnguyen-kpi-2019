@@ -22,7 +22,7 @@ namespace SD2411.KPI2019.Module.Core.Controllers
 
         [Route("generate-token")]
         [HttpPost]
-        public async Task<IActionResult> Login(LoginModel model)
+        public async Task<IActionResult> Login([FromBody]LoginModel model)
         {
             if (!ModelState.IsValid)
             {

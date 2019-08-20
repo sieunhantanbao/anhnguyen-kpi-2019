@@ -22,7 +22,10 @@ export class AuthenticationEffects {
         map((action: AuthenticationLoginAction) => action.payload),
         switchMap(payload => {
             return this.authenService.generateToken(payload)
-                       .do(res => this.dispatcher.fire(new SaveTokenAction(res.token)))
+                       .do(res => {
+                           console.log(res);
+                           this.dispatcher.fire(new SaveTokenAction(res.token))
+                        })
                        .map(res => {
                            return new AuthenticationSuccessAction(AuthenticationActionNames.LOGIN, res);
                        })

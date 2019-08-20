@@ -1,19 +1,31 @@
 import { Routes } from '@angular/router';
 import { GuestComponent } from './layouts/guest/guest.component';
-import { AuthenticatedComponent } from './layouts/authenticated/authenticated.component';
 
 export const AppRoutes : Routes = [
     {
-        path:'',
+        path:'authentication',
         component: GuestComponent,
-        children: [
-            {
-                path: 'authentication',
-                component: AuthenticatedComponent,
-                loadChildren: './modules/authentication/authentication.module#AuthenticationModule'
-            }
-        ]
+        loadChildren: './modules/authentication/authentication.module#AuthenticationModule'
+        //component: GuestComponent,
+        // children: [
+        //     {
+        //         path: 'authentication',
+        //         component: AuthenticatedComponent,
+        //         loadChildren: './modules/authentication/authentication.module#AuthenticationModule'
+        //     }
+        // ]
     },
+    // {
+    //     path: 'authentication',
+    //     component: AuthenticatedComponent,
+    //     children: [
+    //         {
+    //             path: '',
+    //             component: LoginComponent,
+    //             loadChildren: './modules/authentication/authentication.module#AuthenticationModule'
+    //         }
+    //     ]
+    // }
     // {
     //     path: 'book-management',
 

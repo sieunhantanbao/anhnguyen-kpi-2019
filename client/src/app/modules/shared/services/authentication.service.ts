@@ -29,7 +29,7 @@ export class AuthenticationService extends BaseService {
 
     // Aquire token from Server 
     public generateToken(loginModel: LoginModel): Observable<any>{
-        return this.http.post('/authentication/generate-token', loginModel);
+        return this.post<any>('/authentication/generate-token', loginModel);
     }
     // Set token
     public setToken(token: string) {

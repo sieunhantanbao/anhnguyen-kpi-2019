@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SafeUnsubscriber } from 'src/app/modules/shared/utility/safe-unsubscriber';
 import { Subscription } from 'rxjs';
 import { Dispatcher } from '../../../app.dispatcher';
-import { AuthenticationFailedAction, AuthenticationLoginAction, AuthenticationActionNames } from 'src/app/modules/authentication/authentication.state/authentication.actions';
+import { AuthenticationLoginAction, AuthenticationActionNames } from 'src/app/modules/authentication/authentication.state/authentication.actions';
 import { AuthenticationSelectors } from 'src/app/modules/authentication/authentication.state/authentication.selectors';
 
 @Component({
@@ -38,8 +38,9 @@ export class LoginComponent extends SafeUnsubscriber implements OnInit {
   registerSubscriptions() : Subscription[]{
     return [
       this.authSelector.actionSuccessOfSubtype$(AuthenticationActionNames.LOGIN)
-          .subscribe(() => {
+          .subscribe((res) => {
             // Navigate to Authenticated page
+            console.log(res);
           })
     ];
   }
@@ -48,12 +49,23 @@ export class LoginComponent extends SafeUnsubscriber implements OnInit {
   public isLoginError: boolean;
   public loginErrorMessage: string;
 
-  login(){
+  onLogin(){
     this.removeLoginError();
     var loginModel = new LoginModel();
-    loginModel.username = this.frm.value.username;
+    loginModel.email = this.frm.value.username;
     loginModel.password = this.frm.value.password;
     this.dispatcher.fire(new AuthenticationLoginAction(loginModel));
+  }
+
+  isShowLoginError() {
+    return (
+      this.frm.get("username").hasError("loginFail") &&
+      this.frm.get("password").hasError("loginFail")
+    );
+  }
+
+  isDisabledLoginButton() {
+    return !!!this.frm.value.username || !!!this.frm.value.password;
   }
 
   removeLoginError(){

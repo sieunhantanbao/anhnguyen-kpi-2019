@@ -1,7 +1,7 @@
 import {
   HttpClientModule
 } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -27,10 +27,8 @@ import { LoginComponent } from './modules/app/layouts/shared-components/login/lo
     AppComponent,
     AuthenticatedComponent,
     GuestComponent,
-    GuestComponent,
     TopNavBarComponent,
-    CopyRightComponent,
-    LoginComponent
+    CopyRightComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +36,7 @@ import { LoginComponent } from './modules/app/layouts/shared-components/login/lo
     RouterModule.forRoot(AppRoutes, {
       preloadingStrategy: PreloadAllModules}),
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     StoreModule.forRoot({
       app: appModule

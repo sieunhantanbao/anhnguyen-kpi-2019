@@ -1,1 +1,18 @@
-<p>login works!</p>
+<form [formGroup]="frm" (ngSubmit)="onLogin()" >
+    <div class="form-group">
+      <label for="email" class="required">Email</label>
+      <input type="email" class="form-control" id="email" placeholder="Email Address" formControlName="username"/>
+    </div>
+
+    <div class="form-group">
+      <label for="password" class="required">Password</label>
+      <input type="password" class="form-control input-icon" id="password" placeholder="Password" formControlName="password">
+      <div class="field-alert-warning" *ngIf="isShowLoginError()"></div>
+        <i class="fas fa-info-circle"></i>
+        <div>{{loginErrorMessage}}</div>
+      </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Login</button>
+    </div>
+  </form>
