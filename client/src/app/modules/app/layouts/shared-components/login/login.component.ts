@@ -7,6 +7,8 @@ import { Subscription } from 'rxjs';
 import { Dispatcher } from '../../../app.dispatcher';
 import { AuthenticationLoginAction, AuthenticationActionNames } from 'src/app/modules/authentication/authentication.state/authentication.actions';
 import { AuthenticationSelectors } from 'src/app/modules/authentication/authentication.state/authentication.selectors';
+import { AppActionNames } from 'src/app/app.state/app.actions';
+import { AppSelectors } from 'src/app/app.state/app.selectors';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +20,8 @@ export class LoginComponent extends SafeUnsubscriber implements OnInit {
   constructor(private authService: AuthenticationService,
     private fb: FormBuilder,
     private dispatcher: Dispatcher,
-    private authSelector: AuthenticationSelectors) { 
+    private authSelector: AuthenticationSelectors,
+    private appSelector: AppSelectors) { 
     super();
     this.isLoginError = false;
     this.loginErrorMessage ='';
@@ -41,7 +44,13 @@ export class LoginComponent extends SafeUnsubscriber implements OnInit {
           .subscribe((res) => {
             // Navigate to Authenticated page
             console.log(res);
-          })
+            // Fire action to save token
+            // this.dispatcher.fire(new SaveTokenAction({token: res.payload.token}));
+          }),
+      this.appSelector.actionSuccessOfSubtype$(AppActionNames.SAVE_TOKEN)
+          .subscribe((res)=>{
+              console.log("Save Token Success");
+          })    
     ];
   }
 

@@ -35,7 +35,7 @@ export class LogOutAction implements Action{
 }
 export class SaveTokenAction implements Action{
     type: AppActionNames.SAVE_TOKEN;
-    constructor(public payload:string) { }
+    constructor(public payload:any) { }
 }
 export class SaveUserDetailAction implements Action{
     type: AppActionNames.SAVE_USER_DETAIL;

@@ -4,7 +4,7 @@ import { AuthenticationActionNames, AuthenticationLoginAction, AuthenticationSuc
 import { map, switchMap } from 'rxjs/operators';
 import { AuthenticationService } from '../../shared/services/authentication.service';
 import { Dispatcher } from '../../app/app.dispatcher';
-import { SaveTokenAction } from 'src/app/app.state/app.actions';
+import { TOKEN_NAME } from 'src/app/app.state/app.actions';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Rx';
 
@@ -22,11 +22,8 @@ export class AuthenticationEffects {
         map((action: AuthenticationLoginAction) => action.payload),
         switchMap(payload => {
             return this.authenService.generateToken(payload)
-                       .do(res => {
-                           console.log(res);
-                           this.dispatcher.fire(new SaveTokenAction(res.token))
-                        })
                        .map(res => {
+                           localStorage.setItem(TOKEN_NAME, res.token);
                            return new AuthenticationSuccessAction(AuthenticationActionNames.LOGIN, res);
                        })
                        .catch(err =>

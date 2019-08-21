@@ -51,7 +51,7 @@ export class AuthenticationService extends BaseService {
     }
 
     public isAuthenticated(){
-        return this.jwtHelperService.isTokenExpired(this.getToken());
+        return this.isValidToken(this.getToken());
     }
 
     private setTokenInLocalStorage(token: string) {
@@ -63,6 +63,13 @@ export class AuthenticationService extends BaseService {
     }
 
     private isValidToken(token: string){
-        return !this.jwtHelperService.isTokenExpired(token);
+        if (token == null || token.length <= 0) {
+            return false;
+          }
+      
+          if (token === 'undefined') {
+            return false;
+          }
+          return !this.jwtHelperService.isTokenExpired(token)
     }
 }

@@ -1,5 +1,5 @@
 import {
-  HttpClientModule
+  HttpClientModule, HTTP_INTERCEPTORS
 } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -13,14 +13,14 @@ import { EffectsModule } from '@ngrx/effects';
 import { AppEffect } from './app.state/app.effects';
 import { RouterModule, PreloadAllModules } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppRoutes } from './modules/app/app.routing';
 import { Dispatcher } from './modules/app/app.dispatcher';
 import { AuthenticatedComponent } from './modules/app/layouts/authenticated/authenticated.component';
 import { GuestComponent } from './modules/app/layouts/guest/guest.component';
 import { TopNavBarComponent } from './modules/app/layouts/shared-components/top-nav-bar/top-nav-bar.component';
 import { CopyRightComponent } from './modules/app/layouts/shared-components/copy-right/copy-right.component';
 import { AuthenticationService } from './modules/shared/services/authentication.service';
-import { LoginComponent } from './modules/app/layouts/shared-components/login/login.component';
+import { AppRoutes } from './app.routing';
+import { BearerAuthInterceptor } from './helpers/bearer-auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -51,7 +51,12 @@ import { LoginComponent } from './modules/app/layouts/shared-components/login/lo
   providers: [
     AppSelectors,
     Dispatcher,
-    AuthenticationService
+    AuthenticationService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: BearerAuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
