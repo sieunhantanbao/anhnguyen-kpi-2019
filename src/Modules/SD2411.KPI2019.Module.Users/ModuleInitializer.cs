@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using SD2411.KPI2019.Infrastructure.Modules;
-using SD2411.KPI2019.Module.Users.Data;
 using SD2411.KPI2019.Module.Users.Services;
 using System;
 
@@ -17,7 +16,6 @@ namespace SD2411.KPI2019.Module.Users
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient(typeof(IUserRepository), typeof(UserRepository));
             services.AddTransient(typeof(IUserService), typeof(UserService));
         }
     }

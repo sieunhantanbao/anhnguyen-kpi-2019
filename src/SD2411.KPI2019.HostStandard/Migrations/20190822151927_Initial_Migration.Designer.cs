@@ -10,8 +10,8 @@ using SD2411.KPI2019.Module.Core.Data;
 namespace SD2411.KPI2019.HostStandard.Migrations
 {
     [DbContext(typeof(SD2411DBContext))]
-    [Migration("20190807153547_Initial-Migration")]
-    partial class InitialMigration
+    [Migration("20190822151927_Initial_Migration")]
+    partial class Initial_Migration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -137,6 +137,8 @@ namespace SD2411.KPI2019.HostStandard.Migrations
                         .HasColumnName("ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("AppUserId");
+
                     b.Property<int?>("BookId");
 
                     b.Property<DateTime>("BorrowDate")
@@ -145,13 +147,11 @@ namespace SD2411.KPI2019.HostStandard.Migrations
                     b.Property<DateTime?>("ReturnDate")
                         .HasColumnName("RETURN_DATE");
 
-                    b.Property<int?>("UserAccountId");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("BookId");
+                    b.HasIndex("AppUserId");
 
-                    b.HasIndex("UserAccountId");
+                    b.HasIndex("BookId");
 
                     b.ToTable("tbl_book_lending");
                 });
@@ -219,6 +219,8 @@ namespace SD2411.KPI2019.HostStandard.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
+                    b.Property<string>("FullName");
+
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
@@ -253,30 +255,6 @@ namespace SD2411.KPI2019.HostStandard.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("SD2411.KPI2019.Module.Users.Model.UserAccount", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("ID")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Email")
-                        .HasColumnName("EMAIL");
-
-                    b.Property<string>("FullName")
-                        .HasColumnName("FULL_NAME");
-
-                    b.Property<string>("Password")
-                        .HasColumnName("PASSWORD");
-
-                    b.Property<string>("UserName")
-                        .HasColumnName("USER_NAME");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("tlb_user");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -332,14 +310,14 @@ namespace SD2411.KPI2019.HostStandard.Migrations
 
             modelBuilder.Entity("SD2411.KPI2019.Module.BookLending.Model.BookLending", b =>
                 {
+                    b.HasOne("SD2411.KPI2019.Module.Core.Model.ApplicationUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("SD2411.KPI2019.Module.Books.Model.Book", "Book")
                         .WithMany()
                         .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("SD2411.KPI2019.Module.Users.Model.UserAccount", "UserAccount")
-                        .WithMany()
-                        .HasForeignKey("UserAccountId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

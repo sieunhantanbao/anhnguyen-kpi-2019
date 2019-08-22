@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SD2411.KPI2019.HostStandard.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class Initial_Migration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,7 +40,8 @@ namespace SD2411.KPI2019.HostStandard.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    FullName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -59,22 +60,6 @@ namespace SD2411.KPI2019.HostStandard.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_tbl_book_category", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "tlb_user",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    USER_NAME = table.Column<string>(nullable: true),
-                    FULL_NAME = table.Column<string>(nullable: true),
-                    EMAIL = table.Column<string>(nullable: true),
-                    PASSWORD = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_tlb_user", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -214,7 +199,7 @@ namespace SD2411.KPI2019.HostStandard.Migrations
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     BookId = table.Column<int>(nullable: true),
-                    UserAccountId = table.Column<int>(nullable: true),
+                    AppUserId = table.Column<string>(nullable: true),
                     BORROW_DATE = table.Column<DateTime>(nullable: false),
                     RETURN_DATE = table.Column<DateTime>(nullable: true)
                 },
@@ -222,15 +207,15 @@ namespace SD2411.KPI2019.HostStandard.Migrations
                 {
                     table.PrimaryKey("PK_tbl_book_lending", x => x.ID);
                     table.ForeignKey(
+                        name: "FK_tbl_book_lending_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_tbl_book_lending_tbl_book_BookId",
                         column: x => x.BookId,
                         principalTable: "tbl_book",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_tbl_book_lending_tlb_user_UserAccountId",
-                        column: x => x.UserAccountId,
-                        principalTable: "tlb_user",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -280,14 +265,14 @@ namespace SD2411.KPI2019.HostStandard.Migrations
                 column: "BookCategoryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_tbl_book_lending_AppUserId",
+                table: "tbl_book_lending",
+                column: "AppUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_tbl_book_lending_BookId",
                 table: "tbl_book_lending",
                 column: "BookId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_tbl_book_lending_UserAccountId",
-                table: "tbl_book_lending",
-                column: "UserAccountId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -318,9 +303,6 @@ namespace SD2411.KPI2019.HostStandard.Migrations
 
             migrationBuilder.DropTable(
                 name: "tbl_book");
-
-            migrationBuilder.DropTable(
-                name: "tlb_user");
 
             migrationBuilder.DropTable(
                 name: "tbl_book_category");

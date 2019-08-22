@@ -18,14 +18,17 @@ namespace SD2411.KPI2019.Module.Users.Controllers
         {
             _userService = userService;
         }
+
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var user = new UserAccount
-            {
-                UserName = "Nguyen Sieu Anh 2"
-            };
-            return Ok(await _userService.CreateUser(user));
+            return Ok(await _userService.ListAsync(0, 10));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody]UserRequestDto user)
+        {
+            return Ok(await _userService.CreateAsync(user));
         }
     }
 }
