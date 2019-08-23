@@ -1,15 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SD2411.KPI2019.Infrastructure.Data;
 using SD2411.KPI2019.Infrastructure.Extensions;
 using SD2411.KPI2019.Infrastructure.Model;
 using SD2411.KPI2019.Module.Core.Data;
 using SD2411.KPI2019.Module.Core.Model;
 using SD2411.KPI2019.Module.Users.Model;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 namespace SD2411.KPI2019.Module.Users.Services
 {
     public class UserService : IUserService
@@ -25,7 +23,34 @@ namespace SD2411.KPI2019.Module.Users.Services
         public async Task<UserResponseDto> CreateAsync(UserRequestDto user)
         {
             var appUser = MapToRequest(user);
-            var result = await _userManager.CreateAsync(appUser, user.Password);
+            await _userManager.CreateAsync(appUser, user.Password);
+            return MapToResponse(appUser);
+        }
+        public async Task<UserResponseDto> UpdateAsync(string id, UserRequestDto user)
+        {
+            var appUser = await _GetByIdAsync(id);
+            if (appUser != null)
+            {
+                appUser.UserName = user.UserName;
+                appUser.FullName = user.FullName;
+                appUser.PhoneNumber = user.PhoneNumber;
+
+                _context.Users.Update(appUser);
+                _context.SaveChanges();
+            }
+            return appUser != null ? MapToResponse(appUser) : new UserResponseDto();
+
+        }
+        public async Task DeleteAsync(string id)
+        {
+            var appUser = await _GetByIdAsync(id);
+            var deleted = _context.Users.Remove(appUser);
+            _context.SaveChanges();
+        }
+
+        public async Task<UserResponseDto> GetByIdAsync(string id)
+        {
+            var appUser = await _GetByIdAsync(id);
             return MapToResponse(appUser);
         }
 
@@ -38,6 +63,11 @@ namespace SD2411.KPI2019.Module.Users.Services
         }
 
         #region Private Methods
+        private async Task<ApplicationUser> _GetByIdAsync(string id)
+        {
+            var appUser = await _context.Users.FirstOrDefaultAsync(c => c.Id == id);
+            return appUser;
+        }
         private IEnumerable<UserResponseDto> MapToResponse(List<ApplicationUser> appUsers)
         {
             foreach (var item in appUsers)
@@ -54,6 +84,8 @@ namespace SD2411.KPI2019.Module.Users.Services
         }
         private UserResponseDto MapToResponse(ApplicationUser appUser)
         {
+            if (appUser != null)
+            {
                 return new UserResponseDto
                 {
                     Email = appUser.Email,
@@ -62,17 +94,23 @@ namespace SD2411.KPI2019.Module.Users.Services
                     PhoneNumber = appUser.PhoneNumber,
                     UserName = appUser.UserName
                 };
+            }
+            return null;  
         }
 
         private ApplicationUser MapToRequest(UserRequestDto requestUser)
         {
-            return new ApplicationUser
+            if (requestUser != null)
             {
-                Email = requestUser.Email,
-                FullName = requestUser.FullName,
-                PhoneNumber = requestUser.PhoneNumber,
-                UserName = requestUser.UserName
-            };
+                return new ApplicationUser
+                {
+                    Email = requestUser.Email,
+                    FullName = requestUser.FullName,
+                    PhoneNumber = requestUser.PhoneNumber,
+                    UserName = requestUser.UserName
+                };
+            }
+            return null;
         }
         #endregion
     }

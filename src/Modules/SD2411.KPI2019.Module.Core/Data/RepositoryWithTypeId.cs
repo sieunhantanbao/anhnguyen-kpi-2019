@@ -113,7 +113,7 @@ namespace SD2411.KPI2019.Module.Core.Data
         /// <param name="orderBy"></param>
         /// <param name="includesProperties"></param>
         /// <returns></returns>
-        public virtual async Task<IEnumerable<T>> ListAsync(Expression<Func<T, bool>> filter, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy, Func<IQueryable<T>, IIncludableQueryable<T, object>> includesProperties = null)
+        public virtual async Task<IEnumerable<T>> ListAsync(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IIncludableQueryable<T, object>> includesProperties = null)
         {
             var query = DbSet.AsNoTracking();
             if (includesProperties != null)
@@ -139,7 +139,7 @@ namespace SD2411.KPI2019.Module.Core.Data
         /// <param name="orderBy"></param>
         /// <param name="includesProperties"></param>
         /// <returns></returns>
-        public virtual async Task<PaginatedItems<T, TId>> ListAsync(int pageIndex, int pageSize, Expression<Func<T, bool>> filter, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy, Func<IQueryable<T>, IIncludableQueryable<T, object>> includesProperties = null)
+        public virtual async Task<PaginatedItems<T, TId>> ListAsync(int pageIndex, int pageSize, Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IIncludableQueryable<T, object>> includesProperties = null)
         {
             List<T> result;
             var query = DbSet.AsNoTracking();
@@ -182,6 +182,13 @@ namespace SD2411.KPI2019.Module.Core.Data
             DbSet.Remove(entity);
             SaveChanges();
         }
+
+        public virtual void Update(T entity)
+        {
+            DbSet.Update(entity);
+            SaveChanges();
+        }
+
         /// <summary>
         /// Save change
         /// </summary>

@@ -21,15 +21,17 @@ namespace SD2411.KPI2019.Infrastructure.Data
 
         void Remove(T entity);
 
+        void Update(T entity);
+
         Task<bool> AnyAsync(Expression<Func<T, bool>> filter, Func<IQueryable<T>, IIncludableQueryable<T, object>> includeProperties = null);
 
         Task<T> FindAsync(Expression<Func<T, bool>> filter, Func<IQueryable<T>, IIncludableQueryable<T, object>> includeProperties = null);
 
         Task<T> FindByIdAsync(TId id, Func<IQueryable<T>, IIncludableQueryable<T, object>> includeProperties = null);
 
-        Task<IEnumerable<T>> ListAsync(Expression<Func<T, bool>> filter, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy, Func<IQueryable<T>, IIncludableQueryable<T, object>> includesProperties = null);
+        Task<IEnumerable<T>> ListAsync(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IIncludableQueryable<T, object>> includesProperties = null);
 
-        Task<PaginatedItems<T, TId>> ListAsync(int pageIndex, int pageSize ,Expression<Func<T, bool>> filter, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy, Func<IQueryable<T>, IIncludableQueryable<T, object>> includesProperties = null);
+        Task<PaginatedItems<T, TId>> ListAsync(int pageIndex, int pageSize ,Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IIncludableQueryable<T, object>> includesProperties = null);
 
         void SetState(T entity, EntityState state);
 
