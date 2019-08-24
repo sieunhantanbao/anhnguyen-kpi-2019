@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SD2411.KPI2019.Infrastructure.Model;
 using SD2411.KPI2019.Module.Users.Model;
 using SD2411.KPI2019.Module.Users.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace SD2411.KPI2019.Module.Users.Controllers
@@ -26,6 +25,7 @@ namespace SD2411.KPI2019.Module.Users.Controllers
         /// <param name="pageSize"></param>
         /// <returns></returns>
         [HttpGet]
+        [ProducesResponseType(typeof(PaginatedItems<UserResponseDto, string>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Get([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
         {
             return Ok(await _userService.ListAsync(pageIndex, pageSize));
@@ -36,6 +36,9 @@ namespace SD2411.KPI2019.Module.Users.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(UserResponseDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
         public async Task<IActionResult> Get([FromRoute] string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -58,6 +61,8 @@ namespace SD2411.KPI2019.Module.Users.Controllers
         /// <param name="user"></param>
         /// <returns></returns>
         [HttpPost]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(UserResponseDto), (int)HttpStatusCode.Created)]
         public async Task<IActionResult> Post([FromBody]UserRequestDto user)
         {
             if (!ModelState.IsValid)
@@ -73,6 +78,8 @@ namespace SD2411.KPI2019.Module.Users.Controllers
         /// <param name="user"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.Accepted)]
         public async Task<IActionResult> Put([FromRoute] string id, [FromBody] UserRequestDto user)
         {
             if (!ModelState.IsValid)
@@ -90,6 +97,7 @@ namespace SD2411.KPI2019.Module.Users.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
         public async Task<IActionResult> Delete([FromRoute] string id)
         {
             await _userService.DeleteAsync(id);

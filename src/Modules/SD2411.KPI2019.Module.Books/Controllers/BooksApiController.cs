@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SD2411.KPI2019.Infrastructure.Model;
 using SD2411.KPI2019.Module.Books.Model;
 using SD2411.KPI2019.Module.Books.Services;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace SD2411.KPI2019.Module.Books.Controllers
@@ -24,6 +26,7 @@ namespace SD2411.KPI2019.Module.Books.Controllers
         /// <param name="pageSize"></param>
         /// <returns></returns>
         [HttpGet]
+        [ProducesResponseType(typeof(PaginatedItems<BookResponseDto, int>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Get([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
         {
             return Ok(await _bookService.ListAsync(pageIndex, pageSize));
@@ -34,6 +37,9 @@ namespace SD2411.KPI2019.Module.Books.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(BookResponseDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
         public async Task<IActionResult> Get([FromRoute] int id)
         {
             if (id <= 0)
@@ -56,6 +62,8 @@ namespace SD2411.KPI2019.Module.Books.Controllers
         /// <param name="book"></param>
         /// <returns></returns>
         [HttpPost]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(BookResponseDto), (int)HttpStatusCode.Created)]
         public async Task<IActionResult> Post([FromBody]BookRequestDto book)
         {
             if (!ModelState.IsValid)
@@ -71,6 +79,8 @@ namespace SD2411.KPI2019.Module.Books.Controllers
         /// <param name="book"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.Accepted)]
         public IActionResult Put([FromRoute] int id, [FromBody] BookRequestDto book)
         {
             if (!ModelState.IsValid)
@@ -88,6 +98,7 @@ namespace SD2411.KPI2019.Module.Books.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
         public IActionResult Delete([FromRoute] int id)
         {
              _bookService.Delete(id);
@@ -102,6 +113,7 @@ namespace SD2411.KPI2019.Module.Books.Controllers
         /// <param name="pageSize"></param>
         /// <returns></returns>
         [HttpGet("cats")]
+        [ProducesResponseType(typeof(PaginatedItems<BookCategoryResponseDto, int>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetCats([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
         {
             return Ok(await _bookService.ListCatAsync(pageIndex, pageSize));
@@ -112,6 +124,9 @@ namespace SD2411.KPI2019.Module.Books.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("cat/{id}")]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(BookCategoryResponseDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
         public async Task<IActionResult> GetCat([FromRoute] int id)
         {
             if (id <= 0)
