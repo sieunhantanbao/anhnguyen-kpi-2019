@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Compile Remove="Data\IUserRepository.cs" />
-    <Compile Remove="Data\UserCustomModelBuilder.cs" />
     <Compile Remove="Data\UserRepository.cs" />
   </ItemGroup>
 

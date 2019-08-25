@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SD2411.KPI2019.Module.Core.Data;
 
 namespace SD2411.KPI2019.HostStandard.Migrations
 {
     [DbContext(typeof(SD2411DBContext))]
-    partial class SD2411DBContextModelSnapshot : ModelSnapshot
+    [Migration("20190825151448_Initial_Migration")]
+    partial class Initial_Migration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -152,30 +154,6 @@ namespace SD2411.KPI2019.HostStandard.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("tbl_book_lending");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BookId = 1,
-                            BorrowDate = new DateTime(2019, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "69016cd7-609d-4539-a786-af8475f8c624"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            BookId = 2,
-                            BorrowDate = new DateTime(2019, 7, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "69016cd7-609d-4539-a786-af8475f8c624"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            BookId = 3,
-                            BorrowDate = new DateTime(2019, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReturnDate = new DateTime(2019, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "69016cd7-609d-4539-a786-af8475f8c624"
-                        });
                 });
 
             modelBuilder.Entity("SD2411.KPI2019.Module.Books.Model.Book", b =>

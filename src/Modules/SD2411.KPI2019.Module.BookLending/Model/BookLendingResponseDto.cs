@@ -7,6 +7,7 @@ namespace SD2411.KPI2019.Module.BookLending.Model
 {
     public class BookLendingResponseDto
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime PublishedDate { get; set; }

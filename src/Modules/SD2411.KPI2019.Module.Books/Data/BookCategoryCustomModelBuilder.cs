@@ -14,7 +14,8 @@ namespace SD2411.KPI2019.Module.Books.Data
             entity.Property(c => c.Id).HasColumnName("ID").ValueGeneratedOnAdd();
             entity.Property(c => c.Name).HasColumnName("NAME");
             entity.Property(c => c.Description).HasColumnName("DESCRIPTION");
-
+            // Add seed data
+            entity.HasData(BookCaterorySeedData.Data());
         }
     }
 }

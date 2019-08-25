@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using SD2411.KPI2019.Infrastructure.Modules;
+using SD2411.KPI2019.Module.BookLending.Services;
 using System;
 
 namespace SD2411.KPI2019.Module.BookLending
@@ -13,9 +14,9 @@ namespace SD2411.KPI2019.Module.BookLending
             //throw new NotImplementedException();
         }
 
-        public void ConfigureServices(IServiceCollection serviceCollection)
+        public void ConfigureServices(IServiceCollection services)
         {
-            //throw new NotImplementedException();
+            services.AddTransient(typeof(IBookLendingService), typeof(BookLendingService));
         }
     }
 }

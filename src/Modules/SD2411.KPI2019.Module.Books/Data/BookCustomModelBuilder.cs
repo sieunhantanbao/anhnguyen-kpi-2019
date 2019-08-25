@@ -22,10 +22,19 @@ namespace SD2411.KPI2019.Module.Books.Data
             entity.Property(c => c.Available2Lend).HasColumnName("IS_AVAILABLE_TO_LEND");
             entity.Property(c => c.Available2Lend).HasColumnName("IS_AVAILABLE_TO_LEND");
             entity.Property(c => c.Author).HasColumnName("AUTHOR");
-            //entity.Property(c => c.BookCategory123).HasColumnName("BOOK_CATEGORY");
+            entity.Property(c => c.ISBN).HasColumnName("ISBN");
+            entity.Property(c => c.ISBN13).HasColumnName("ISBN13");
+            entity.Property(c => c.Language).HasColumnName("LANGUAGE");
+            entity.Property(c => c.Length).HasColumnName("LENGTH");
+            entity.Property(c => c.Weight).HasColumnName("WEIGHT");
+            entity.Property(c => c.Dimensions).HasColumnName("DIMENSIONS");
+            entity.Property(c => c.ImageUrl).HasColumnName("IMAGE_URL");
 
             entity.HasOne(c => c.BookCategory)
                   .WithMany(c => c.Books).HasConstraintName("FK_BOOK_CATEGORY");
+
+            // Initial simple data
+            entity.HasData(BookSeedData.Data());
         }
     }
 }

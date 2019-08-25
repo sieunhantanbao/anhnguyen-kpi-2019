@@ -25,9 +25,9 @@ namespace SD2411.KPI2019.Module.BookLending.Controllers
         [HttpGet("{userid}/books")]
         [ProducesResponseType(typeof(BooksBorrowedByUserResponseDto), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
-        public async Task<IActionResult> Get([FromRoute] string userId)
+        public async Task<IActionResult> Get([FromRoute] string userid)
         {
-            var result = await _bookLendingService.BooksBorrowedByUserAsync(userId);
+            var result = await _bookLendingService.BooksBorrowedByUserAsync(userid);
             if (result != null)
             {
                 return Ok(result);
