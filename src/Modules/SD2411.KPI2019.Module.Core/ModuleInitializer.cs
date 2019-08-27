@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using SD2411.KPI2019.Infrastructure.Configurations;
+using SD2411.KPI2019.Infrastructure.HttpHelpers;
 using SD2411.KPI2019.Infrastructure.Modules;
 using SD2411.KPI2019.Module.Core.Data;
 using SD2411.KPI2019.Module.Core.Model;
@@ -39,6 +40,8 @@ namespace SD2411.KPI2019.Module.Core
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtAuthenticateOptions.SecurityKey))
                 };
             });
+            // Add Restinvoker
+            services.AddHttpClient<RestInvoker>();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

@@ -14,6 +14,7 @@ namespace SD2411.KPI2019.Module.Books.Services
         Task<PaginatedItems<BookResponseDto, int>> ListAsync(int pageIndex, int pageSize);
         Task<BookResponseDto> CreateAsync(BookRequestDto book);
         BookResponseDto Update(int id, BookRequestDto book);
+        void UpdateAvailable2Lend(int bookId, bool isAvailable2Lend);
         void Delete(int id);
 
         // Book Category

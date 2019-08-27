@@ -72,6 +72,7 @@ namespace SD2411.KPI2019.Module.Books.Controllers
             }
             return Created(nameof(Get), await _bookService.CreateAsync(book));
         }
+
         /// <summary>
         /// Update book
         /// </summary>

@@ -78,6 +78,15 @@ namespace SD2411.KPI2019.Module.Books.Services
             return MapToResponse(bookEntity);
         }
 
+        public void UpdateAvailable2Lend(int bookId, bool isAvailable2Lend)
+        {
+            var bookEntity = _GetById(bookId);
+            if (bookEntity != null)
+            {
+                bookEntity.Available2Lend = isAvailable2Lend;
+                _bookRepository.Update(bookEntity);
+            }
+        }
         #region Private methods
         private Book _GetById(int id)
         {
