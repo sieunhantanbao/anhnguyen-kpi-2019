@@ -1,5 +1,6 @@
 import { Routes, RouterModule } from '@angular/router';
 import { GuestComponent } from './modules/app/layouts/guest/guest.component';
+import { AuthenticatedComponent } from './modules/app/layouts/authenticated/authenticated.component';
 
 export const AppRoutes : Routes = [
   {
@@ -7,6 +8,11 @@ export const AppRoutes : Routes = [
       component: GuestComponent,
       loadChildren: './modules/authentication/authentication.module#AuthenticationModule'
   },
+  {
+    path: 'management',
+    component: AuthenticatedComponent,
+    loadChildren: './modules/management/management.module#ManagementModule'
+  }
   // {
   //     path: 'authentication',
   //     component: AuthenticatedComponent,

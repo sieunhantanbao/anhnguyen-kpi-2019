@@ -11,9 +11,13 @@ export class AppComponent implements OnInit, OnDestroy {
     private router: Router) {}
 
   ngOnInit(): void {
-     if(!this.authenticationService.isAuthenticated()){
-        this.router.navigate(['/authentication/login']);
-     }
+    //this.router.navigate(['/']);
+    //  if(!this.authenticationService.isAuthenticated()){
+    //     this.router.navigate(['/authentication/login']);
+    //  }else{
+    //    this.router.navigate(['/']);
+    //  }
+     
   }
 
   ngOnDestroy(): void {

@@ -77,6 +77,8 @@ namespace SD2411.KPI2019.HostStandard
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SD2411 KPI API", Version = "v1" });
             });
+
+            //services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -117,6 +119,12 @@ namespace SD2411.KPI2019.HostStandard
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "SD2411 KPI V1 Docs");
 
             });
+
+            //app.UseCors(builder => builder
+            //        .AllowAnyOrigin()
+            //        .WithMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD", "CONNECT", "TRACE")
+            //        .AllowAnyHeader()
+            //        .AllowCredentials());
         }
     }
 }

@@ -9,6 +9,7 @@ import { AuthenticationLoginAction, AuthenticationActionNames } from 'src/app/mo
 import { AuthenticationSelectors } from 'src/app/modules/authentication/authentication.state/authentication.selectors';
 import { AppActionNames } from 'src/app/app.state/app.actions';
 import { AppSelectors } from 'src/app/app.state/app.selectors';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -21,13 +22,18 @@ export class LoginComponent extends SafeUnsubscriber implements OnInit {
     private fb: FormBuilder,
     private dispatcher: Dispatcher,
     private authSelector: AuthenticationSelectors,
-    private appSelector: AppSelectors) { 
+    private appSelector: AppSelectors,
+    private router: Router) { 
     super();
     this.isLoginError = false;
     this.loginErrorMessage ='';
   }
 
   ngOnInit() {
+    if(this.authService.isAuthenticated()){
+      // If already login => Navigate to Homepage
+      this.router.navigate(['/']);
+    }
     this.safeSubscriptions(this.registerSubscriptions());
     this.buildForm();
   }
@@ -42,10 +48,8 @@ export class LoginComponent extends SafeUnsubscriber implements OnInit {
     return [
       this.authSelector.actionSuccessOfSubtype$(AuthenticationActionNames.LOGIN)
           .subscribe((res) => {
-            // Navigate to Authenticated page
-            console.log(res);
-            // Fire action to save token
-            // this.dispatcher.fire(new SaveTokenAction({token: res.payload.token}));
+            // Navigate to Authenticated pag
+            this.router.navigate(['/']);
           }),
       this.appSelector.actionSuccessOfSubtype$(AppActionNames.SAVE_TOKEN)
           .subscribe((res)=>{
