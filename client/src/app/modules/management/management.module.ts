@@ -13,6 +13,7 @@ import { BookmanagementComponent } from './bookmanagement/bookmanagement.compone
 import { BookdetailComponent } from './bookmanagement/bookdetail/bookdetail.component';
 import { UsermanagementComponent } from './usermanagement/usermanagement.component';
 import { UserdetailComponent } from './usermanagement/userdetail/userdetail.component';
+import { BookService } from '../shared/services/book.service';
 
 @NgModule(
     {
@@ -32,7 +33,8 @@ import { UserdetailComponent } from './usermanagement/userdetail/userdetail.comp
            UserdetailComponent],
         providers: [
             AppSelectors,
-            ManagementSelectors
+            ManagementSelectors,
+            BookService
         ],
         exports: [
 

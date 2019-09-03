@@ -71,6 +71,16 @@ namespace SD2411.KPI2019.HostStandard
             {
                 moduleInitilizer.ConfigureServices(services);
             }
+            // Add cors
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAnyOrigin", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+                });
+            });
 
             // Add Swagger
             services.AddSwaggerGen(c =>
@@ -111,6 +121,9 @@ namespace SD2411.KPI2019.HostStandard
             }
             // Use Custom MVC (API) modules
             app.UseCustomizedMvc();
+
+            // Use Cors
+            app.UseCors("AllowAnyOrigin");
 
             // Use Swagger
             app.UseSwagger();

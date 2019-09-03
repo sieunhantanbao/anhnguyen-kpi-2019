@@ -11,7 +11,8 @@ using System.Threading.Tasks;
 
 namespace SD2411.KPI2019.Module.Core.Controllers
 {
-    [Route("authentication")]
+    [Route("api/authentication")]
+    [Produces("application/json")]
     public class AuthenticateController : Controller
     {
         private UserManager<ApplicationUser> _userManager;

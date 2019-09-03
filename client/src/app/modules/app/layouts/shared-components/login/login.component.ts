@@ -48,6 +48,7 @@ export class LoginComponent extends SafeUnsubscriber implements OnInit {
     return [
       this.authSelector.actionSuccessOfSubtype$(AuthenticationActionNames.LOGIN)
           .subscribe((res) => {
+            console.log("Res of login::", res);
             // Navigate to Authenticated pag
             this.router.navigate(['/']);
           }),

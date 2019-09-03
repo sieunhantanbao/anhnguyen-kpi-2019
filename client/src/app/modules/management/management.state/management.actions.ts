@@ -1,6 +1,8 @@
 import { Action } from '@ngrx/store';
+import { PagingRequestModel } from '../../shared/models/paging-request.model';
 
 export enum ManagementActionNames {
+    GET_LIST_BOOKS = '[Management] Get List Books',
     ACTION_SUCCESS = '[Management] Success',
     ACTION_FAILED = '[Management] Failed',
 }
@@ -9,6 +11,10 @@ export interface AuthenticationAction extends Action {
     payload?: any
 }
 
+export class GetListBookAction implements Action {
+    type = ManagementActionNames.GET_LIST_BOOKS;
+    constructor(public payload: PagingRequestModel){}
+}
 
 export class ManagementSuccessAction implements Action {
     type = ManagementActionNames.ACTION_SUCCESS;

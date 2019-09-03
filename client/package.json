@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --prod -o --host 0.0.0.0",
+    "start-dev": "ng serve --prod --host localhost --ssl --port 4200 --ssl-key ../certs/localhost.key --ssl-cert ../certs/localhost.pem --live-reload true",
     "build": "ng build --prod --build-optimizer=true --aot=true",
     "test": "ng test",
     "lint": "ng lint",

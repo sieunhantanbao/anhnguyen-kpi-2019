@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { AuthenticationRoutes } from './authentication.routing';
 import { LoginComponent } from '../app/layouts/shared-components/login/login.component';
 import { AuthenticationSelectors } from './authentication.state/authentication.selectors';
-import { AuthenticatedComponent } from '../app/layouts/authenticated/authenticated.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthenticationEffects } from './authentication.state/authentication.effects';
