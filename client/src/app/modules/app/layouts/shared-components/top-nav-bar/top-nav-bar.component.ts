@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from 'src/app/modules/shared/services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-top-nav-bar',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TopNavBarComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private authenService: AuthenticationService,
+    private router: Router) { }
+  public isAuthenticated = false;
   ngOnInit() {
+     this.isAuthenticated = this.authenService.isAuthenticated();
   }
 
+  logout(){
+    this.authenService.clearToken();
+    this.router.navigate(['/authentication/login']);
+  }
 }

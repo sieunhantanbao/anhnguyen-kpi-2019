@@ -14,6 +14,8 @@ import { BookdetailComponent } from './bookmanagement/bookdetail/bookdetail.comp
 import { UsermanagementComponent } from './usermanagement/usermanagement.component';
 import { UserdetailComponent } from './usermanagement/userdetail/userdetail.component';
 import { BookService } from '../shared/services/book.service';
+import { MyprofileComponent } from './usermanagement/myprofile/myprofile.component';
+import { UserService } from '../shared/services/user.service';
 
 @NgModule(
     {
@@ -30,11 +32,13 @@ import { BookService } from '../shared/services/book.service';
         BookmanagementComponent,
            BookdetailComponent,
            UsermanagementComponent,
-           UserdetailComponent],
+           UserdetailComponent,
+           MyprofileComponent],
         providers: [
             AppSelectors,
             ManagementSelectors,
-            BookService
+            BookService,
+            UserService
         ],
         exports: [
 

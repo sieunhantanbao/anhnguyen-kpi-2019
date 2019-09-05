@@ -21,6 +21,7 @@ import { CopyRightComponent } from './modules/app/layouts/shared-components/copy
 import { AuthenticationService } from './modules/shared/services/authentication.service';
 import { AppRoutes } from './app.routing';
 import { BearerAuthInterceptor } from './helpers/bearer-auth.interceptor';
+import { DataTablesModule } from 'angular-datatables';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { BearerAuthInterceptor } from './helpers/bearer-auth.interceptor';
       preloadingStrategy: PreloadAllModules}),
     FormsModule,
     ReactiveFormsModule,
+    DataTablesModule,
     HttpClientModule,
     StoreModule.forRoot({
       app: appModule

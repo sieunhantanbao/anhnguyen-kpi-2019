@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { ManagementSelectors } from '../../management/management.state/management.selectors';
 import { Observable } from 'rxjs';
 import { PagingRequestModel } from '../models/paging-request.model';
-import { debug } from 'util';
 
 @Injectable()
 export class BookService extends BaseService {
@@ -15,7 +14,10 @@ export class BookService extends BaseService {
     }
     // Get list books from server
     public listBooks(pagingRequestModel: PagingRequestModel): Observable<any>{
-        debugger;
         return this.get(`/books?pageIndex=${pagingRequestModel.pageIndex}&&pageSize=${pagingRequestModel.pageSize}`);
+    }
+
+    public bookDetail(id: string): Observable<any>{
+        return this.get(`/books/${id}`);
     }
 }

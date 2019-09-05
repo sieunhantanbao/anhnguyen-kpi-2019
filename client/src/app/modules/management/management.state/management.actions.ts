@@ -3,6 +3,8 @@ import { PagingRequestModel } from '../../shared/models/paging-request.model';
 
 export enum ManagementActionNames {
     GET_LIST_BOOKS = '[Management] Get List Books',
+    GET_BOOK_DETAIL = '[Management] Get Book Detail',
+    GET_MY_PROFILE = '[Management] My profile',
     ACTION_SUCCESS = '[Management] Success',
     ACTION_FAILED = '[Management] Failed',
 }
@@ -14,6 +16,16 @@ export interface AuthenticationAction extends Action {
 export class GetListBookAction implements Action {
     type = ManagementActionNames.GET_LIST_BOOKS;
     constructor(public payload: PagingRequestModel){}
+}
+
+export class GetBookDetailAction implements Action {
+    type = ManagementActionNames.GET_BOOK_DETAIL;
+    constructor(public payload: string){}
+}
+
+export class GetMyProfileAction implements Action {
+    type = ManagementActionNames.GET_MY_PROFILE;
+    constructor(){}
 }
 
 export class ManagementSuccessAction implements Action {

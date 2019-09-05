@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SD2411.KPI2019.Infrastructure.Model;
 using SD2411.KPI2019.Module.Users.Model;
 using SD2411.KPI2019.Module.Users.Services;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -103,6 +106,20 @@ namespace SD2411.KPI2019.Module.Users.Controllers
             await _userService.DeleteAsync(id);
 
             return NoContent();
+        }
+
+        /// <summary>
+        /// Get my profile from token
+        /// </summary>
+        /// <returns></returns>
+        [Authorize]
+        [HttpGet("my-profile")]
+        [ProducesResponseType(typeof(UserResponseDto),(int)HttpStatusCode.OK)]
+        public async Task<IActionResult> Get()
+        {
+            var userId = Request.HttpContext.User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Jti)?.Value;
+            var result  = await _userService.GetByIdAsync(userId);
+            return Ok(result);
         }
     }
 }

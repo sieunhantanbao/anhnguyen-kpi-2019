@@ -12,7 +12,13 @@ export const AppRoutes : Routes = [
     path: 'management',
     component: AuthenticatedComponent,
     loadChildren: './modules/management/management.module#ManagementModule'
+  },
+  {
+    path: '',
+    redirectTo: 'management',
+    pathMatch:'full'
   }
+
   // {
   //     path: 'authentication',
   //     component: AuthenticatedComponent,

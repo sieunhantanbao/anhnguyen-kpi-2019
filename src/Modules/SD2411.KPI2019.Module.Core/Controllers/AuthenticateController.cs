@@ -36,8 +36,9 @@ namespace SD2411.KPI2019.Module.Core.Controllers
             {
                 var authClaims = new[]
                 {
-                    new Claim(JwtRegisteredClaimNames.Sub, model.Email),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                    new Claim(JwtRegisteredClaimNames.Email, model.Email),
+                    new Claim(JwtRegisteredClaimNames.Jti, user.Id),
+                    new Claim(JwtRegisteredClaimNames.Sub, user.Id)
                 };
 
                 var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtAuthenticateOptions.SecurityKey));

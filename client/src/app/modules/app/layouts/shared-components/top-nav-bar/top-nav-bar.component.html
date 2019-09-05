@@ -9,8 +9,8 @@
         <li><a href="#">Page 2</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li *ngIf="isAuthenticated"><a [routerLink]="['/management/my-profile']"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
+        <li *ngIf="isAuthenticated"><a href="#" (click)="logout()"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
       </ul>
     </div>
   </nav>
