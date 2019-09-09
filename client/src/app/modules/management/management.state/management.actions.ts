@@ -1,9 +1,11 @@
 import { Action } from '@ngrx/store';
 import { PagingRequestModel } from '../../shared/models/paging-request.model';
+import { BookLendingRequestModel } from '../../shared/models/book-lending-request.model';
 
 export enum ManagementActionNames {
     GET_LIST_BOOKS = '[Management] Get List Books',
     GET_BOOK_DETAIL = '[Management] Get Book Detail',
+    LEND_A_BOOK ='[Management] Lend a book',
     GET_MY_PROFILE = '[Management] My profile',
     ACTION_SUCCESS = '[Management] Success',
     ACTION_FAILED = '[Management] Failed',
@@ -21,6 +23,11 @@ export class GetListBookAction implements Action {
 export class GetBookDetailAction implements Action {
     type = ManagementActionNames.GET_BOOK_DETAIL;
     constructor(public payload: string){}
+}
+
+export class LendABookAction implements Action {
+    type = ManagementActionNames.LEND_A_BOOK;
+    constructor(public payload: BookLendingRequestModel){}
 }
 
 export class GetMyProfileAction implements Action {

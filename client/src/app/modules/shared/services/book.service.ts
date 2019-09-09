@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ManagementSelectors } from '../../management/management.state/management.selectors';
 import { Observable } from 'rxjs';
 import { PagingRequestModel } from '../models/paging-request.model';
+import { BookLendingRequestModel } from '../models/book-lending-request.model';
 
 @Injectable()
 export class BookService extends BaseService {
@@ -19,5 +20,9 @@ export class BookService extends BaseService {
 
     public bookDetail(id: string): Observable<any>{
         return this.get(`/books/${id}`);
+    }
+
+    public borrowABook(bookLendingRequest: BookLendingRequestModel): Observable<any>{
+        return this.post<any>(`/booklending/book-lending`,bookLendingRequest);
     }
 }

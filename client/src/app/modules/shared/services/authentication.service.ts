@@ -4,7 +4,7 @@ import { BaseService } from './base.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AppSelectors } from 'src/app/app.state/app.selectors';
-import { UserDetail } from '../models/user-detail.model';
+import { UserDetail, BasicTokenDetail } from '../models/user-detail.model';
 import { TOKEN_NAME } from 'src/app/app.state/app.actions';
 import { Observable } from 'rxjs';
 import { LoginModel } from '../models/login.model';
@@ -71,5 +71,13 @@ export class AuthenticationService extends BaseService {
             return false;
           }
           return !this.jwtHelperService.isTokenExpired(token)
+    }
+
+    public getAuthenticatedUser(): BasicTokenDetail{
+        var tokendDecoded = this.jwtHelperService.decodeToken(this.getToken());
+        var basicTokenDetail = new BasicTokenDetail();
+        basicTokenDetail.email = tokendDecoded.email;
+        basicTokenDetail.userId = tokendDecoded.sub;
+        return basicTokenDetail;
     }
 }

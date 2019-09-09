@@ -8,7 +8,7 @@
                 <th class="text-nowrap">Actions</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody *ngIf="!!lstBooks">
             <tr *ngFor="let book of lstBooks.data">
                 <td>{{book.id}}</td>
                 <td>{{book.name}}</td>

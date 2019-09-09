@@ -3,10 +3,12 @@ import { BookService } from 'src/app/modules/shared/services/book.service';
 import { SafeUnsubscriber } from 'src/app/modules/shared/utility/safe-unsubscriber';
 import { Subscription } from 'rxjs';
 import { ManagementSelectors } from '../../management.state/management.selectors';
-import { ManagementActionNames, GetBookDetailAction } from '../../management.state/management.actions';
+import { ManagementActionNames, GetBookDetailAction, LendABookAction } from '../../management.state/management.actions';
 import { Dispatcher } from 'src/app/modules/app/app.dispatcher';
 import { ActivatedRoute } from '@angular/router';
 import { BookDetailModel } from 'src/app/modules/shared/models/book-detail.model';
+import { BookLendingRequestModel } from 'src/app/modules/shared/models/book-lending-request.model';
+import { AuthenticationService } from 'src/app/modules/shared/services/authentication.service';
 
 @Component({
   selector: 'app-bookdetail',
@@ -15,7 +17,7 @@ import { BookDetailModel } from 'src/app/modules/shared/models/book-detail.model
 })
 export class BookdetailComponent extends SafeUnsubscriber implements OnInit {
 
-  constructor(private bookService: BookService,
+  constructor(private authenticationService: AuthenticationService,
     private managementSelector: ManagementSelectors,
     private dispatcher: Dispatcher,
     private activatedRoute: ActivatedRoute) { 
@@ -25,8 +27,7 @@ export class BookdetailComponent extends SafeUnsubscriber implements OnInit {
   bookDetail: any;
 
   ngOnInit() {
-    let bookId = this.activatedRoute.snapshot.paramMap.get('id');
-    this.dispatcher.fire(new GetBookDetailAction(bookId));
+    this.getBookDetail();
     this.safeSubscriptions(this.registerSubscriptions());
   }
 
@@ -36,6 +37,23 @@ export class BookdetailComponent extends SafeUnsubscriber implements OnInit {
           .subscribe((res)=>{
               this.bookDetail = res.payload;
           })
+        ,
+        this.managementSelector.actionSuccessOfSubtype$(ManagementActionNames.LEND_A_BOOK)
+          .subscribe((res)=>{
+            this.getBookDetail();
+          })
     ]
+  }
+  getBookDetail(){
+    let bookId = this.activatedRoute.snapshot.paramMap.get('id');
+    this.dispatcher.fire(new GetBookDetailAction(bookId));
+  }
+  lendABook(){
+    if(confirm('Are you sure you want to borrow this book?')){
+      var requestModel = new BookLendingRequestModel();
+      requestModel.bookId = this.bookDetail.id;
+      requestModel.userId = this.authenticationService.getAuthenticatedUser().userId;
+      this.dispatcher.fire(new LendABookAction(requestModel));
+    }
   }
 }

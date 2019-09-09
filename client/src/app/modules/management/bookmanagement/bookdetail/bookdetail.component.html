@@ -1,1 +1,28 @@
-{{bookDetail | json}}
+<div class="wrapper row" *ngIf="!!bookDetail">
+    <div class="preview col-md-3 float-left">
+        <div class="preview-pic tab-content">
+          <div class="tab-pane active">
+              <img [src]="bookDetail.imageUrl" class="img-book-thumbnail" />
+          </div>
+        </div>
+    </div>
+    <div class="details col-md-9 float-right">
+        <h3 class="book-title">{{bookDetail.name}}</h3>
+        <span class="author-info">By {{bookDetail.author}}</span>
+        <br/>
+        <div class="other-info">ISBN <span>{{bookDetail.isbn}}</span></div>
+        <div class="other-info">ISBN13 <span>{{bookDetail.isbN13}}</span></div>
+        <div class="other-info">Number of pages <span>{{bookDetail.length}}</span></div>
+        <div class="other-info">Language <span>{{bookDetail.language}}</span></div>
+        <div class="other-info">Weight <span>{{bookDetail.weight}}</span></div>
+        <div class="other-info">Dimensions <span>{{bookDetail.dimensions}}</span></div>
+        <div class="other-info">Published Date <span>{{bookDetail.publishedDate | date}}</span></div>
+        <div class="other-info">In Category <span>{{bookDetail.catName}}</span></div>
+        <h4 class="available-to-borrow">Borrow status
+            <button [ngClass]="bookDetail.available2Lend?'btn btn-success':'btn btn-standard'" (click)="lendABook()" [disabled]="!bookDetail.available2Lend">{{bookDetail.available2Lend?'Borrow Now':'Borrowed'}}</button>
+        </h4>
+        <div class="book-overview">Overview
+            <p class="book-description">{{bookDetail.description}}</p>
+        </div>
+    </div>
+</div>

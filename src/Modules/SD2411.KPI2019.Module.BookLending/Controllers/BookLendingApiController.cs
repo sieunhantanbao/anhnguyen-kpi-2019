@@ -66,7 +66,11 @@ namespace SD2411.KPI2019.Module.BookLending.Controllers
                 return NoContent();
             }
         }
-
+        /// <summary>
+        /// Borrow a book
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost("book-lending")]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.Accepted)]

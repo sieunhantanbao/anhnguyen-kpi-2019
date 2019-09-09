@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
-import { ManagementActionNames, ManagementSuccessAction, ManagementFailedAction, GetListBookAction, GetMyProfileAction, GetBookDetailAction } from './management.actions';
+import { ManagementActionNames, ManagementSuccessAction, ManagementFailedAction, GetListBookAction, GetMyProfileAction, GetBookDetailAction, LendABookAction } from './management.actions';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Rx';
 import { BookService } from '../../shared/services/book.service';
@@ -42,6 +42,21 @@ export class ManagementEffects {
                         )
          })
       )
+    
+    @Effect()
+    lendingABook = this.actions$.pipe(
+        ofType(ManagementActionNames.LEND_A_BOOK),
+        map((action: LendABookAction)=> action.payload),
+        switchMap(payload => {
+            return this.bookService.borrowABook(payload)
+                .map(res => {
+                    return new ManagementSuccessAction(ManagementActionNames.LEND_A_BOOK, res);
+                })
+                .catch(err =>
+                    Observable.of(new ManagementFailedAction(ManagementActionNames.LEND_A_BOOK, err))
+                )
+        })
+    )
     @Effect()
     myProfile$ = this.actions$.pipe(
         ofType(ManagementActionNames.GET_MY_PROFILE),
