@@ -6,6 +6,7 @@ import { ManagementSelectors } from '../../management/management.state/managemen
 import { Observable } from 'rxjs';
 import { PagingRequestModel } from '../models/paging-request.model';
 import { BookLendingRequestModel } from '../models/book-lending-request.model';
+import { BookReturnRequestModel } from '../models/book-return-request.model';
 
 @Injectable()
 export class BookService extends BaseService {
@@ -24,5 +25,13 @@ export class BookService extends BaseService {
 
     public borrowABook(bookLendingRequest: BookLendingRequestModel): Observable<any>{
         return this.post<any>(`/booklending/book-lending`,bookLendingRequest);
+    }
+
+    public returnABook(bookReturningRequest: BookReturnRequestModel): Observable<any>{
+        return this.put<any>(`/booklending/book-returning/${bookReturningRequest.id}`, bookReturningRequest);
+    }
+
+    public getBorrowedABooks(userId: string): Observable<any>{
+        return this.get(`/booklending/${userId}/books`);
     }
 }

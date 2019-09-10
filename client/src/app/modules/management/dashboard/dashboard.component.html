@@ -1,0 +1,29 @@
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Borrow date</th>
+                <th>Return date</th>
+                <th class="text-nowrap">Actions</th>
+            </tr>
+        </thead>
+        <tbody *ngIf="!!listBooks">
+            <tr *ngFor="let book of listBooks.books">
+                <td>{{(book.name.length>50)? (book.name | slice:0:50)+'..':(book.name) }}</td>
+                <td class="font-weight-bold">{{book.author}}</td>
+                <td>{{book.borrowDate | date}}</td>
+                <td>{{book.returnDate | date}}</td>
+                <td class="text-nowrap">
+                    <a [routerLink]="['/management/book-detail', book.bookId]" class="btn btn-success a-btn-slide-text">
+                        <span><strong>View</strong></span>
+                    </a>
+                    <a *ngIf="book.returnDate==null" (click)="returnBook(book.id, book.bookId)" class="btn btn-warning a-btn-slide-text">
+                        <span><strong>Return</strong></span>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

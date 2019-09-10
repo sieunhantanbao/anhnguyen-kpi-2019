@@ -4,6 +4,7 @@ import { UsermanagementComponent } from './usermanagement/usermanagement.compone
 import { UserdetailComponent } from './usermanagement/userdetail/userdetail.component';
 import { MyprofileComponent } from './usermanagement/myprofile/myprofile.component';
 import { BookdetailComponent } from './bookmanagement/bookdetail/bookdetail.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 export const ManagementRoutes: Routes = [
     {
@@ -11,8 +12,12 @@ export const ManagementRoutes: Routes = [
         children: [
             {
                 path: '',
-                redirectTo: 'my-profile',
+                redirectTo: 'dashboard',
                 pathMatch: 'full'
+            },
+            {
+                path:'dashboard',
+                component: DashboardComponent
             },
             {
                 path: 'book-management',
