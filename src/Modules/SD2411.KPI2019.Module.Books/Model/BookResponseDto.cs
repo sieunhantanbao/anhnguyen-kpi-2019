@@ -8,6 +8,7 @@ namespace SD2411.KPI2019.Module.Books.Model
     public class BookResponseDto : IEntityWithTypedId<int>
     {
         public int Id { get; set; }
+        public string Slug { get; set; }
         public string Language { get; set; }
         public string ISBN { get; set; }
         public string ISBN13 { get; set; }

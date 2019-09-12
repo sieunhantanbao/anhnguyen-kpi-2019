@@ -15,6 +15,8 @@ namespace SD2411.KPI2019.Module.Books.Data
 
             entity.ToTable("tbl_book");
             entity.HasKey(c => c.Id);
+            entity.HasIndex(c => c.Slug).IsUnique();
+            entity.Property(c => c.Slug).HasColumnName("SLUG");
             entity.Property(c => c.Id).HasColumnName("ID").ValueGeneratedOnAdd();
             entity.Property(c => c.Name).HasColumnName("NAME");
             entity.Property(c => c.Description).HasColumnName("DESCRIPTION");

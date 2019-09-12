@@ -9,5 +9,6 @@ namespace SD2411.KPI2019.Module.Core.Model
     public class ApplicationUser : IdentityUser
     {
         public string FullName { get; set; }
+
     }
 }

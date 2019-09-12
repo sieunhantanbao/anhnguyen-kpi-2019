@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using SD2411.KPI2019.Infrastructure.Configurations;
-using SD2411.KPI2019.Infrastructure.HttpHelpers;
+using SD2411.KPI2019.Infrastructure.Helpers;
 using SD2411.KPI2019.Infrastructure.Modules;
 using SD2411.KPI2019.Module.Core.Data;
 using SD2411.KPI2019.Module.Core.Model;

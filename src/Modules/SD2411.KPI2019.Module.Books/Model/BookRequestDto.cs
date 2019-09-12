@@ -8,6 +8,7 @@ namespace SD2411.KPI2019.Module.Books.Model
     public class BookRequestDto
     {
         public int Id { get; set; }
+        public string Slug { get; set; }
         [Required(ErrorMessage ="Name is required")]
         public string Name { get; set; }
         public string Description { get; set; }

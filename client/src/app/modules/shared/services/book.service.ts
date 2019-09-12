@@ -19,12 +19,12 @@ export class BookService extends BaseService {
         return this.get(`/books?pageIndex=${pagingRequestModel.pageIndex}&&pageSize=${pagingRequestModel.pageSize}`);
     }
 
-    public bookDetail(id: string): Observable<any>{
-        return this.get(`/books/${id}`);
+    public bookDetail(slug: string): Observable<any>{
+        return this.get(`/books/${slug}`);
     }
 
     public borrowABook(bookLendingRequest: BookLendingRequestModel): Observable<any>{
-        return this.post<any>(`/booklending/book-lending`,bookLendingRequest);
+        return this.post<any>(`/booklending/book-lending`, bookLendingRequest);
     }
 
     public returnABook(bookReturningRequest: BookReturnRequestModel): Observable<any>{

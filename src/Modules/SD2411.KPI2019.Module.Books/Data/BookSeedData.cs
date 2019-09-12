@@ -1,4 +1,5 @@
-﻿using SD2411.KPI2019.Module.Books.Model;
+﻿using SD2411.KPI2019.Infrastructure.Helpers;
+using SD2411.KPI2019.Module.Books.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -17,6 +18,7 @@ namespace SD2411.KPI2019.Module.Books.Data
                 {
                     Id = 1,
                     Name = "Outliers: The Story of Success",
+                    Slug = FriendlyUrlHelper.GetFriendlyTitle("Outliers: The Story of Success", true),
                     Language ="English",
                     ISBN = "0316017930",
                     ISBN13 = "9780316017930",
@@ -34,6 +36,7 @@ namespace SD2411.KPI2019.Module.Books.Data
                 {
                     Id = 2,
                     Name = "Life of Pi",
+                    Slug = FriendlyUrlHelper.GetFriendlyTitle("Life of Pi", true),
                     Language ="English",
                     ISBN = "0156027321",
                     ISBN13 = "N/A",
@@ -51,6 +54,7 @@ namespace SD2411.KPI2019.Module.Books.Data
                 {
                     Id = 3,
                     Name = "Think and Grow Rich: The Landmark Bestseller Now Revised and Updated for the 21st Century (Think and Grow Rich Series)",
+                    Slug = FriendlyUrlHelper.GetFriendlyTitle("Think and Grow Rich: The Landmark Bestseller Now Revised and Updated for the 21st Century (Think and Grow Rich Series)", true),
                     Language ="English",
                     ISBN = "1585424331",
                     ISBN13 = "9781585424337",
@@ -68,6 +72,7 @@ namespace SD2411.KPI2019.Module.Books.Data
                 {
                     Id = 4,
                     Name = "The Richest Man in Babylon",
+                    Slug = FriendlyUrlHelper.GetFriendlyTitle("The Richest Man in Babylon", true),
                     Language ="English",
                     ISBN = "1508524351",
                     ISBN13 = "9781508524359",
@@ -85,6 +90,7 @@ namespace SD2411.KPI2019.Module.Books.Data
                 {
                     Id = 5,
                     Name = "The 7 Habits of Highly Effective People : Powerful Lessons in Personal Change",
+                    Slug = FriendlyUrlHelper.GetFriendlyTitle("The 7 Habits of Highly Effective People : Powerful Lessons in Personal Change", true),
                     Language ="English",
                     ISBN = "1451639619",
                     ISBN13 = "9781451639612",
@@ -102,6 +108,7 @@ namespace SD2411.KPI2019.Module.Books.Data
                 {
                     Id = 6,
                     Name = "The Millionaire Next Door : The Surprising Secrets of America's Wealthy",
+                    Slug = FriendlyUrlHelper.GetFriendlyTitle("The Millionaire Next Door : The Surprising Secrets of America's Wealthy", true),
                     Language ="English",
                     ISBN = "1589795474",
                     ISBN13 = "9781589795471",
@@ -119,6 +126,7 @@ namespace SD2411.KPI2019.Module.Books.Data
                 {
                     Id = 7,
                     Name = "The 21 Irrefutable Laws of Leadership : Follow Them and People Will Follow You",
+                    Slug = FriendlyUrlHelper.GetFriendlyTitle("The 21 Irrefutable Laws of Leadership : Follow Them and People Will Follow You", true),
                     Language ="English",
                     ISBN = "0785288376",
                     ISBN13 = "9780785288374",
@@ -136,6 +144,7 @@ namespace SD2411.KPI2019.Module.Books.Data
                 {
                     Id = 8,
                     Name = "Rich Dad Poor Dad : What the Rich Teach Their Kids about Money That the Poor and Middle Class Do Not!",
+                    Slug = FriendlyUrlHelper.GetFriendlyTitle("Rich Dad Poor Dad : What the Rich Teach Their Kids about Money That the Poor and Middle Class Do Not!", true),
                     Language ="English",
                     ISBN = "1612680194",
                     ISBN13 = "9781612680194",
@@ -153,6 +162,7 @@ namespace SD2411.KPI2019.Module.Books.Data
                 {
                     Id = 9,
                     Name = "La oruga muy hambrienta/The Very Hungry Caterpillar: bilingual board book [Spanish]",
+                    Slug = FriendlyUrlHelper.GetFriendlyTitle("La oruga muy hambrienta/The Very Hungry Caterpillar: bilingual board book [Spanish]", true),
                     Language ="Spanish",
                     ISBN = "0399256059",
                     ISBN13 = "9780399256059",
@@ -170,6 +180,7 @@ namespace SD2411.KPI2019.Module.Books.Data
                 {
                     Id = 10,
                     Name = "Blink : The Power of Thinking Without Thinking",
+                    Slug = FriendlyUrlHelper.GetFriendlyTitle("Blink : The Power of Thinking Without Thinking", true),
                     Language ="English",
                     ISBN = "0316010669",
                     ISBN13 = "9780316010665",

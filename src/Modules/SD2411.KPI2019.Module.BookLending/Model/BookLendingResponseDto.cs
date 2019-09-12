@@ -9,6 +9,7 @@ namespace SD2411.KPI2019.Module.BookLending.Model
     {
         public int Id { get; set; }
         public int BookId { get; set; }
+        public string BookSlug { get; set; }
         public string UserId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }

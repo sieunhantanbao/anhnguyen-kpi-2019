@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using SD2411.KPI2019.Infrastructure.Data;
-using SD2411.KPI2019.Infrastructure.HttpHelpers;
+using SD2411.KPI2019.Infrastructure.Helpers;
 using SD2411.KPI2019.Module.BookLending.Model;
 using SD2411.KPI2019.Module.Core.Model;
 using SD2411.KPI2019.Module.Users.Model;
@@ -80,19 +80,7 @@ namespace SD2411.KPI2019.Module.BookLending.Services
         {
             foreach (var bookLending in bookLendings)
             {
-                yield return new BookLendingResponseDto
-                {
-                    Id = bookLending.Id,
-                    UserId = bookLending.UserId,
-                    BookId = bookLending.Book.Id,
-                    Author = bookLending.Book.Author,
-                    Description = bookLending.Book.Description,
-                    CategoryName = bookLending.Book.BookCategory?.Name,
-                    Name = bookLending.Book.Name,
-                    PublishedDate = bookLending.Book.PublishedDate,
-                    BorrowDate = bookLending.BorrowDate,
-                    ReturnDate = bookLending.ReturnDate
-                };
+                yield return MapToResponse(bookLending);
             }
         }
 
@@ -105,6 +93,7 @@ namespace SD2411.KPI2019.Module.BookLending.Services
                     Id = bookLending.Id,
                     UserId = bookLending.UserId,
                     BookId = bookLending.Book.Id,
+                    BookSlug = bookLending.Book.Slug,
                     Author = bookLending.Book.Author,
                     Description = bookLending.Book.Description,
                     CategoryName = bookLending.Book.BookCategory?.Name,

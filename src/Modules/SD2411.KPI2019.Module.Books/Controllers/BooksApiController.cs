@@ -41,13 +41,23 @@ namespace SD2411.KPI2019.Module.Books.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(BookResponseDto), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
-        public async Task<IActionResult> Get([FromRoute] int id)
+        public async Task<IActionResult> Get([FromRoute] string id)
         {
-            if (id <= 0)
+            if(id == null)
             {
                 return BadRequest();
             }
-            var result = await _bookService.GetByIdAsync(id);
+
+            BookResponseDto result;
+            int.TryParse(id, out int bookId);
+            if (bookId > 0)
+            {
+                result = await _bookService.GetByIdAsync(bookId);
+            }
+            else
+            {
+                result = await _bookService.GetBySlugAsync(id);
+            }
             if (result != null)
             {
                 return Ok(result);

@@ -8,6 +8,7 @@ namespace SD2411.KPI2019.Module.Users.Model
     public class UserResponseDto : IEntityWithTypedId<string>
     {
         public string Id { get; set; }
+        public string Slug { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }

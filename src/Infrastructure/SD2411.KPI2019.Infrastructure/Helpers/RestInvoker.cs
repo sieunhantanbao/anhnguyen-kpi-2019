@@ -8,7 +8,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SD2411.KPI2019.Infrastructure.HttpHelpers
+namespace SD2411.KPI2019.Infrastructure.Helpers
 {
     public class RestInvoker
     {

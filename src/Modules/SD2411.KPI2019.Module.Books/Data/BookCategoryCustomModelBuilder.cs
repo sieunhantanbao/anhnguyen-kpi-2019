@@ -11,7 +11,9 @@ namespace SD2411.KPI2019.Module.Books.Data
             var entity = modelBuilder.Entity<BookCategory>();
             entity.ToTable("tbl_book_category");
             entity.HasKey(c => c.Id);
+            entity.HasIndex(c => c.Slug).IsUnique();
             entity.Property(c => c.Id).HasColumnName("ID").ValueGeneratedOnAdd();
+            entity.Property(c => c.Slug).HasColumnName("SLUG");
             entity.Property(c => c.Name).HasColumnName("NAME");
             entity.Property(c => c.Description).HasColumnName("DESCRIPTION");
             // Add seed data

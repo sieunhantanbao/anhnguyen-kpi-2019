@@ -11,6 +11,7 @@ namespace SD2411.KPI2019.Module.Books.Services
     {
         // Book
         Task<BookResponseDto> GetByIdAsync(int id);
+        Task<BookResponseDto> GetBySlugAsync(string slug);
         Task<PaginatedItems<BookResponseDto, int>> ListAsync(int pageIndex, int pageSize);
         Task<BookResponseDto> CreateAsync(BookRequestDto book);
         BookResponseDto Update(int id, BookRequestDto book);

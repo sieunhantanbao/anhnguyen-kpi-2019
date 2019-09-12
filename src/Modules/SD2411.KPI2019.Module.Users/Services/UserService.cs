@@ -72,14 +72,7 @@ namespace SD2411.KPI2019.Module.Users.Services
         {
             foreach (var item in appUsers)
             {
-                yield return new UserResponseDto
-                {
-                    Email = item.Email,
-                    FullName = item.FullName,
-                    Id = item.Id,
-                    PhoneNumber = item.PhoneNumber,
-                    UserName = item.UserName
-                };
+                yield return MapToResponse(item);
             }
         }
         private UserResponseDto MapToResponse(ApplicationUser appUser)

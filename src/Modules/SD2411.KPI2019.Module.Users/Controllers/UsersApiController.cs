@@ -13,6 +13,7 @@ namespace SD2411.KPI2019.Module.Users.Controllers
     [Route("api/users")]
     [ApiController]
     [Produces("application/json")]
+    [Authorize]
     public class UsersApiController : Controller
     {
         private readonly IUserService _userService;

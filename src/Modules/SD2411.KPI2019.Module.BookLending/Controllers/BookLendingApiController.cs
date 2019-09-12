@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SD2411.KPI2019.Module.BookLending.Model;
 using SD2411.KPI2019.Module.BookLending.Services;
 using SD2411.KPI2019.Module.Books.Services;
@@ -10,6 +11,7 @@ namespace SD2411.KPI2019.Module.BookLending.Controllers
     [Route("api/booklending")]
     [ApiController]
     [Produces("application/json")]
+    [Authorize]
     public class BookLendingApiController : Controller
     {
         private readonly IBookLendingService _bookLendingService;

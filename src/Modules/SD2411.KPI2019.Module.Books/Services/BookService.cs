@@ -8,12 +8,12 @@ using SD2411.KPI2019.Module.Core.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using Microsoft.EntityFrameworkCore.Query;
+using SD2411.KPI2019.Infrastructure.Helpers;
 
 namespace SD2411.KPI2019.Module.Books.Services
 {
     public class BookService : IBookService
     {
-        private readonly SD2411DBContext _context;
         private readonly IRepository<Book> _bookRepository;
         private readonly IRepository<BookCategory> _bookCatRepository;
         public BookService(IRepository<Book> bookRepo, IRepository<BookCategory> bookCatRepo)
@@ -24,7 +24,16 @@ namespace SD2411.KPI2019.Module.Books.Services
 
         public async Task<BookResponseDto> CreateAsync(BookRequestDto book)
         {
+            if (!string.IsNullOrWhiteSpace(book.Slug))
+            {
+                book.Slug = FriendlyUrlHelper.GetFriendlyTitle(book.Slug, true);
+            }
+            else
+            {
+                book.Slug = FriendlyUrlHelper.GetFriendlyTitle(book.Name, true);
+            }
             var bookEntity = MapToRequest(book);
+            bookEntity.Slug = await _bookRepository.SafeToSlug(bookEntity.Slug, bookEntity.Id);
             var result = await _bookRepository.AddAsync(bookEntity);
             return MapToResponse(result);
         }
@@ -32,6 +41,12 @@ namespace SD2411.KPI2019.Module.Books.Services
         public void Delete(int id)
         {
             _bookRepository.Remove(_GetById(id));
+        }
+        
+        public async Task<BookResponseDto> GetBySlugAsync(string slug)
+        {
+            var result = await _bookRepository.ListAsync(c=>c.Slug == slug.ToLower(), null, IncludeProperties);
+            return MapToResponse(result?.FirstOrDefault());
         }
 
         public async Task<BookResponseDto> GetByIdAsync(int id)
@@ -100,24 +115,7 @@ namespace SD2411.KPI2019.Module.Books.Services
         {
             foreach (var book in books)
             {
-                yield return new BookResponseDto
-                {
-                    Id = book.Id,
-                    Author = book.Author,
-                    Available2Lend = book.Available2Lend,
-                    CatId = book.BookCategory?.Id,
-                    CatName = book.BookCategory?.Name,
-                    Description = book.Description,
-                    Language = book.Language,
-                    ISBN = book.ISBN,
-                    ISBN13 = book.ISBN13,
-                    Dimensions = book.Dimensions,
-                    Length = book.Length,
-                    Weight = book.Weight,
-                    Name = book.Name,
-                    ImageUrl = book.ImageUrl,
-                    PublishedDate = book.PublishedDate
-                };
+                yield return MapToResponse(book);
             }
         }
         private BookResponseDto MapToResponse(Book book)
@@ -127,6 +125,7 @@ namespace SD2411.KPI2019.Module.Books.Services
                 return new BookResponseDto
                 {
                     Id = book.Id,
+                    Slug = book.Slug,
                     Author = book.Author,
                     Available2Lend = book.Available2Lend,
                     Language = book.Language,
@@ -157,6 +156,7 @@ namespace SD2411.KPI2019.Module.Books.Services
                 return new Book
                 {
                     Id = book.Id,
+                    Slug = book.Slug,
                     Author = book.Author,
                     Available2Lend = book.Available2Lend,
                     Description = book.Description,
@@ -179,12 +179,7 @@ namespace SD2411.KPI2019.Module.Books.Services
         {
             foreach (var bookCat in bookCats)
             {
-                yield return new BookCategoryResponseDto
-                {
-                    Id = bookCat.Id,
-                    Description = bookCat.Description,
-                    Name = bookCat.Name
-                };
+                yield return MapToResponse(bookCat);
             }
         }
 

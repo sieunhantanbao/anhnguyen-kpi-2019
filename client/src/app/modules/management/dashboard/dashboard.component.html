@@ -16,7 +16,7 @@
                 <td>{{book.borrowDate | date}}</td>
                 <td>{{book.returnDate | date}}</td>
                 <td class="text-nowrap">
-                    <a [routerLink]="['/management/book-detail', book.bookId]" class="btn btn-success a-btn-slide-text">
+                    <a [routerLink]="['/management/book-detail', book.bookSlug]" class="btn btn-success a-btn-slide-text">
                         <span><strong>View</strong></span>
                     </a>
                     <a *ngIf="book.returnDate==null" (click)="returnBook(book.id, book.bookId)" class="btn btn-warning a-btn-slide-text">

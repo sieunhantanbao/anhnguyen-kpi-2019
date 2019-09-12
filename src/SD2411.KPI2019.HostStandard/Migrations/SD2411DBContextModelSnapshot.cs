@@ -143,6 +143,9 @@ namespace SD2411.KPI2019.HostStandard.Migrations
                     b.Property<DateTime?>("ReturnDate")
                         .HasColumnName("RETURN_DATE");
 
+                    b.Property<string>("Slug")
+                        .HasColumnName("SLUG");
+
                     b.Property<string>("UserId");
 
                     b.HasKey("Id");
@@ -152,30 +155,6 @@ namespace SD2411.KPI2019.HostStandard.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("tbl_book_lending");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BookId = 1,
-                            BorrowDate = new DateTime(2019, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "69016cd7-609d-4539-a786-af8475f8c624"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            BookId = 2,
-                            BorrowDate = new DateTime(2019, 7, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "69016cd7-609d-4539-a786-af8475f8c624"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            BookId = 3,
-                            BorrowDate = new DateTime(2019, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReturnDate = new DateTime(2019, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "69016cd7-609d-4539-a786-af8475f8c624"
-                        });
                 });
 
             modelBuilder.Entity("SD2411.KPI2019.Module.Books.Model.Book", b =>
@@ -220,12 +199,19 @@ namespace SD2411.KPI2019.HostStandard.Migrations
                     b.Property<DateTime>("PublishedDate")
                         .HasColumnName("PUBLISHED_DATE");
 
+                    b.Property<string>("Slug")
+                        .HasColumnName("SLUG");
+
                     b.Property<string>("Weight")
                         .HasColumnName("WEIGHT");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BookCategoryId");
+
+                    b.HasIndex("Slug")
+                        .IsUnique()
+                        .HasFilter("[SLUG] IS NOT NULL");
 
                     b.ToTable("tbl_book");
 
@@ -245,6 +231,7 @@ namespace SD2411.KPI2019.HostStandard.Migrations
                             Length = 336,
                             Name = "Outliers: The Story of Success",
                             PublishedDate = new DateTime(2011, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Slug = "outliers-the-story-of-success",
                             Weight = "0.75 lbs"
                         },
                         new
@@ -262,6 +249,7 @@ namespace SD2411.KPI2019.HostStandard.Migrations
                             Length = 326,
                             Name = "Life of Pi",
                             PublishedDate = new DateTime(2003, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Slug = "life-of-pi",
                             Weight = "0.87 lbs"
                         },
                         new
@@ -279,6 +267,7 @@ namespace SD2411.KPI2019.HostStandard.Migrations
                             Length = 320,
                             Name = "Think and Grow Rich: The Landmark Bestseller Now Revised and Updated for the 21st Century (Think and Grow Rich Series)",
                             PublishedDate = new DateTime(2005, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Slug = "think-and-grow-rich-the-landmark-bestseller-now-revised-and-updated-for-the-21st",
                             Weight = "0.63 lbs."
                         },
                         new
@@ -296,6 +285,7 @@ namespace SD2411.KPI2019.HostStandard.Migrations
                             Length = 100,
                             Name = "The Richest Man in Babylon",
                             PublishedDate = new DateTime(2015, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Slug = "the-richest-man-in-babylon",
                             Weight = "0.40 lbs"
                         },
                         new
@@ -313,6 +303,7 @@ namespace SD2411.KPI2019.HostStandard.Migrations
                             Length = 432,
                             Name = "The 7 Habits of Highly Effective People : Powerful Lessons in Personal Change",
                             PublishedDate = new DateTime(2013, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Slug = "the-7-habits-of-highly-effective-people-powerful-lessons-in-personal-change",
                             Weight = "0.84 lbs"
                         },
                         new
@@ -330,6 +321,7 @@ namespace SD2411.KPI2019.HostStandard.Migrations
                             Length = 272,
                             Name = "The Millionaire Next Door : The Surprising Secrets of America's Wealthy",
                             PublishedDate = new DateTime(2010, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Slug = "the-millionaire-next-door-the-surprising-secrets-of-americas-wealthy",
                             Weight = "0.68 lbs."
                         },
                         new
@@ -347,6 +339,7 @@ namespace SD2411.KPI2019.HostStandard.Migrations
                             Length = 336,
                             Name = "The 21 Irrefutable Laws of Leadership : Follow Them and People Will Follow You",
                             PublishedDate = new DateTime(2007, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Slug = "the-21-irrefutable-laws-of-leadership-follow-them-and-people-will-follow-you",
                             Weight = "1.19 lbs."
                         },
                         new
@@ -364,6 +357,7 @@ namespace SD2411.KPI2019.HostStandard.Migrations
                             Length = 336,
                             Name = "Rich Dad Poor Dad : What the Rich Teach Their Kids about Money That the Poor and Middle Class Do Not!",
                             PublishedDate = new DateTime(2017, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Slug = "rich-dad-poor-dad-what-the-rich-teach-their-kids-about-money-that-the-poor-and",
                             Weight = "0.56 lbs."
                         },
                         new
@@ -381,6 +375,7 @@ namespace SD2411.KPI2019.HostStandard.Migrations
                             Length = 24,
                             Name = "La oruga muy hambrienta/The Very Hungry Caterpillar: bilingual board book [Spanish]",
                             PublishedDate = new DateTime(2011, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Slug = "la-oruga-muy-hambrienta-the-very-hungry-caterpillar-bilingual-board-book-spanis",
                             Weight = "0.40 lbs."
                         },
                         new
@@ -398,6 +393,7 @@ namespace SD2411.KPI2019.HostStandard.Migrations
                             Length = 320,
                             Name = "Blink : The Power of Thinking Without Thinking",
                             PublishedDate = new DateTime(2007, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Slug = "blink-the-power-of-thinking-without-thinking",
                             Weight = "0.72 lbs"
                         });
                 });
@@ -415,7 +411,14 @@ namespace SD2411.KPI2019.HostStandard.Migrations
                     b.Property<string>("Name")
                         .HasColumnName("NAME");
 
+                    b.Property<string>("Slug")
+                        .HasColumnName("SLUG");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("Slug")
+                        .IsUnique()
+                        .HasFilter("[SLUG] IS NOT NULL");
 
                     b.ToTable("tbl_book_category");
 
