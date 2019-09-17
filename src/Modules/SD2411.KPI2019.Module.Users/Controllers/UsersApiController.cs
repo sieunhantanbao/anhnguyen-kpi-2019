@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SD2411.KPI2019.Infrastructure.Model;
 using SD2411.KPI2019.Module.Users.Model;
@@ -16,10 +17,12 @@ namespace SD2411.KPI2019.Module.Users.Controllers
     [Authorize]
     public class UsersApiController : Controller
     {
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUserService _userService;
-        public UsersApiController(IUserService userService)
+        public UsersApiController(IUserService userService, IHttpContextAccessor httpContextAccessor)
         {
             _userService = userService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         /// <summary>
@@ -50,7 +53,7 @@ namespace SD2411.KPI2019.Module.Users.Controllers
                 return BadRequest();
             }
             var result = await _userService.GetByIdAsync(id);
-            if(result!=null)
+            if (result != null)
             {
                 return Ok(result);
             }
@@ -83,7 +86,7 @@ namespace SD2411.KPI2019.Module.Users.Controllers
         /// <returns></returns>
         [HttpPut("{id}")]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType((int)HttpStatusCode.Accepted)]
+        [ProducesResponseType(typeof(UserResponseDto), (int)HttpStatusCode.Accepted)]
         public async Task<IActionResult> Put([FromRoute] string id, [FromBody] UserRequestDto user)
         {
             if (!ModelState.IsValid)
@@ -91,9 +94,9 @@ namespace SD2411.KPI2019.Module.Users.Controllers
                 return BadRequest();
             }
 
-            await _userService.UpdateAsync(id, user);
+            var result = await _userService.UpdateAsync(id, user);
 
-            return Accepted();
+            return Accepted(result);
         }
         /// <summary>
         /// Delete user by user Id
@@ -115,12 +118,15 @@ namespace SD2411.KPI2019.Module.Users.Controllers
         /// <returns></returns>
         [Authorize]
         [HttpGet("my-profile")]
-        [ProducesResponseType(typeof(UserResponseDto),(int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(UserResponseDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
         public async Task<IActionResult> Get()
         {
-            var userId = Request.HttpContext.User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Jti)?.Value;
-            var result  = await _userService.GetByIdAsync(userId);
-            return Ok(result);
+            var userId = _httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Jti)?.Value;
+            var result = await _userService.GetByIdAsync(userId);
+            if (result != null)
+                return Ok(result);
+            return NoContent();
         }
     }
 }
