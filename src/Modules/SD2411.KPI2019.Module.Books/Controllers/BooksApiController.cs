@@ -100,9 +100,9 @@ namespace SD2411.KPI2019.Module.Books.Controllers
                 return BadRequest();
             }
 
-            _bookService.Update(id, book);
+            var result = _bookService.Update(id, book);
 
-            return Accepted();
+            return Accepted(result);
         }
         /// <summary>
         /// Delete book by book Id

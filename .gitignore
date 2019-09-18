@@ -20,3 +20,5 @@
 /src/Modules/SD2411.KPI2019.Module.BookLending/bin
 /src/Tests/SD2411.KPI2019.Module.Users.Test/obj
 /src/Tests/SD2411.KPI2019.Module.Users.Test/bin
+/src/Tests/SD2411.KPI2019.Module.Book.Test/obj
+/src/Tests/SD2411.KPI2019.Module.Book.Test/bin

@@ -65,7 +65,7 @@ namespace SD2411.KPI2019.HostStandard
             services.AddCustomizedMvc(GlobalConfiguration.Modules);
 
             // Register services from Module
-            var sp = services.BuildServiceProvider();
+            ServiceProvider sp = services.BuildServiceProvider();
             var moduleInitilizers = sp.GetServices<IModuleInitializer>();
             foreach (var moduleInitilizer in moduleInitilizers)
             {
