@@ -61,7 +61,7 @@ namespace SD2411.KPI2019.Module.BookLending.Controllers
             var result = await _bookLendingService.BookReturning(id, model);
             if (result)
             {
-                return Accepted();
+                return Accepted(result);
             }
             else
             {
