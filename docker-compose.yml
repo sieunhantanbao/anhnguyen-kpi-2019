@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  sd2411.api:
+    build:
+        context: .
+        dockerfile: Dockerfile
+    ports: 
+      - 81:80
+      - 444:443
+    restart: always
+    command: bash -c "dotnet /app/SD2411.KPI2019.HostStandard.dll"
+  sd2411.client:
+    build:
+        context: ./client
+        dockerfile: Dockerfile
+    ports:
+      - 82:80
+    restart: always

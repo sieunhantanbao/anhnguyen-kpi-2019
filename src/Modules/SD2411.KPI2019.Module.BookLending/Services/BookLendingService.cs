@@ -15,11 +15,11 @@ namespace SD2411.KPI2019.Module.BookLending.Services
     public class BookLendingService : IBookLendingService
     {
         private readonly IRepository<Model.BookLending> _bookLendingRepository;
-        private readonly RestInvoker _restInvoke;
-        public BookLendingService(IRepository<Model.BookLending> bookLendingRepository, RestInvoker restInvoke)
+        // private readonly RestInvoker _restInvoke;
+        public BookLendingService(IRepository<Model.BookLending> bookLendingRepository) //, RestInvoker restInvoke)
         {
             _bookLendingRepository = bookLendingRepository;
-            _restInvoke = restInvoke;
+           // _restInvoke = restInvoke;
         }
         public async Task<BooksBorrowedByUserResponseDto> BooksBorrowedByUserAsync(string userId)
         {

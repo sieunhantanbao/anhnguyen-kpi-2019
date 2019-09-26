@@ -18,7 +18,6 @@ using SD2411.KPI2019.Infrastructure.Modules;
 using System.IO;
 using Microsoft.OpenApi.Models;
 using SD2411.KPI2019.HostStandard.Extension;
-using SD2411.KPI2019.Infrastructure.Helpers;
 
 namespace SD2411.KPI2019.HostStandard
 {

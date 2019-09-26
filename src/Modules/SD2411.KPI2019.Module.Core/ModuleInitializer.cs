@@ -41,7 +41,7 @@ namespace SD2411.KPI2019.Module.Core
                 };
             });
             // Add Restinvoker
-            services.AddHttpClient<RestInvoker>();
+            // services.AddHttpClient<RestInvoker>();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
