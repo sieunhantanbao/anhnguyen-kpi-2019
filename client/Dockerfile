@@ -5,7 +5,11 @@ WORKDIR /app
 
 COPY . ./
 
-RUN sed -i 's/baseUrl: ".*"/baseUrl: "http:\/\/localhost:81\/api"/' src/environments/environment.prod.ts 
+ARG webapiurl
+
+RUN echo $webapiurl
+
+RUN sed -i 's;https://localhost:44305/api;'$webapiurl';' src/environments/environment.prod.ts 
 
 RUN npm install
 

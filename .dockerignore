@@ -20,3 +20,4 @@
 **/.toolstarget
 TestResults/
 client/
+*.xlsx

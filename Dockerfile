@@ -6,6 +6,7 @@ EXPOSE 443
 
 COPY . ./
 
+
 RUN sed -i 's#<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />#<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.0.0" />#' src/SD2411.KPI2019.HostStandard/SD2411.KPI2019.HostStandard.csproj
 RUN sed -i 's/UseSqlServer/UseSqlite/' src/SD2411.KPI2019.HostStandard/Startup.cs
 RUN sed -i 's/"DefaultConnection": ".*"/"DefaultConnection": "Data Source=sd2411-kpi2019.db"/' src/SD2411.KPI2019.HostStandard/appsettings.json

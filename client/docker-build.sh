@@ -1,0 +1,1 @@
+docker build -t sd2411-kpi2019-client --build-arg webapiurl=http://localhost:81/api .
