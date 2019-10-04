@@ -13,24 +13,24 @@ RUN sed -i 's/"DefaultConnection": ".*"/"DefaultConnection": "Data Source=sd2411
 
 RUN rm src/SD2411.KPI2019.HostStandard/Migrations/*
 
-RUN dotnet tool install --global dotnet-ef --version 3.0.0
+RUN dotnet tool install dotnet-ef --global --version 3.0.0
 
 ENV PATH="${PATH}:/root/.dotnet/tools"
 
-#RUN dotnet restore && dotnet build \
-#    && cd src/SD2411.KPI2019.HostStandard \
-#    && dotnet ef migrations add initialSchema \
-#    && dotnet ef database update
-#
-#RUN dotnet build -c Release \
-#	&& cd src/SD2411.KPI2019.HostStandard \
-#	&& dotnet build -c Release \
-#	&& dotnet publish -c Release -o out
-#
-#FROM mcr.microsoft.com/dotnet/core/aspnet:3.0.0
-#
-#WORKDIR /app	
-#COPY --from=build /app/src/SD2411.KPI2019.HostStandard/out ./
-#COPY --from=build /app/src/SD2411.KPI2019.HostStandard/sd2411-kpi2019.db ./
-#
-#ENTRYPOINT ["dotnet", "SD2411.KPI2019.HostStandard.dll"]
+RUN dotnet restore && dotnet build \
+    && cd src/SD2411.KPI2019.HostStandard \
+    && dotnet ef migrations add initialSchema \
+    && dotnet ef database update
+
+RUN dotnet build -c Release \
+	&& cd src/SD2411.KPI2019.HostStandard \
+	&& dotnet build -c Release \
+	&& dotnet publish -c Release -o out
+
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.0.0
+
+WORKDIR /app	
+COPY --from=build /app/src/SD2411.KPI2019.HostStandard/out ./
+COPY --from=build /app/src/SD2411.KPI2019.HostStandard/sd2411-kpi2019.db ./
+
+ENTRYPOINT ["dotnet", "SD2411.KPI2019.HostStandard.dll"]
