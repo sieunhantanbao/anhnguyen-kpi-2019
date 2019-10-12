@@ -1,0 +1,62 @@
+# Docker
+# Build a Docker image 
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- dev
+
+resources:
+- repo: self
+
+variables:
+  tag: '$(Build.BuildId)'
+  azureSubscription: 'Free Trial (a3f5bdc7-158f-41cf-a683-2ee18181b44f)'
+  azureContainerRegistry: '{"loginServer":"sd2411containerregistry.azurecr.io", "id" : "/subscriptions/a3f5bdc7-158f-41cf-a683-2ee18181b44f/resourceGroups/anhnguyens_resourcegroup/providers/Microsoft.ContainerRegistry/registries/sd2411containerregistry"}'
+  webapiurl: https://sd2411-web-api.azurewebsites.net/api
+
+stages:
+- stage: Build
+  displayName: Build and Deploy
+  jobs:  
+  - job: Build
+    displayName: Build and Push Images to Azure
+    pool:
+      name: 'My-Azure-Pool'
+    steps:
+    - task: Docker@0
+      displayName: 'Build API image'
+      inputs:
+        azureSubscription: $(azureSubscription)
+        azureContainerRegistry: $(azureContainerRegistry)
+        dockerFile: Dockerfile
+        buildArguments: 'test=test --no-cache'
+        imageName: 'sd2411-kpi2019-api:$(tag)'
+        includeLatestTag: true
+    - task: Docker@0
+      displayName: 'Push API image'
+      inputs:
+        azureSubscription: $(azureSubscription)
+        azureContainerRegistry: $(azureContainerRegistry)
+        action: 'Push an image'
+        imageName: 'sd2411-kpi2019-api:$(tag)'
+        includeSourceTags: true
+        includeLatestTag: true
+    - task: Docker@0
+      displayName: 'Build Client Image'
+      inputs:
+        azureSubscription: $(azureSubscription)
+        azureContainerRegistry: $(azureContainerRegistry)
+        dockerFile: client/Dockerfile
+        buildArguments: |
+          webapiurl=$(webapiurl)
+          test=test --no-cache
+        imageName: 'sd2411-kpi2019-client:$(tag)'
+        includeLatestTag: true
+    - task: Docker@0
+      displayName: 'Push Client image'
+      inputs:
+        azureSubscription: $(azureSubscription)
+        azureContainerRegistry: $(azureContainerRegistry)
+        action: 'Push an image'
+        imageName: 'sd2411-kpi2019-client:$(tag)'
+        includeLatestTag: true
