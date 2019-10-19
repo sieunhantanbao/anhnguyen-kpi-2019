@@ -74,15 +74,15 @@ stages:
         buildArguments: 'test=test --no-cache'
         imageName: 'sd2411-kpi2019-api:$(tag)'
         includeLatestTag: true
-    #- task: Docker@0
-     # displayName: 'Push API image'
-      #inputs:
-       # azureSubscription: $(azureSubscription)
-        #azureContainerRegistry: $(azureContainerRegistry)
-        #action: 'Push an image'
-        #imageName: 'sd2411-kpi2019-api:$(tag)'
-        #includeSourceTags: true
-        #includeLatestTag: true
+    - task: Docker@0
+      displayName: 'Push API image'
+      inputs:
+        azureSubscription: $(azureSubscription)
+        azureContainerRegistry: $(azureContainerRegistry)
+        action: 'Push an image'
+        imageName: 'sd2411-kpi2019-api:$(tag)'
+        includeSourceTags: true
+        includeLatestTag: true
     - task: Docker@0
       displayName: 'Build Client Image'
       inputs:
@@ -94,11 +94,11 @@ stages:
           test=test --no-cache
         imageName: 'sd2411-kpi2019-client:$(tag)'
         includeLatestTag: true
-    #- task: Docker@0
-     # displayName: 'Push Client image'
-      #inputs:
-       # azureSubscription: $(azureSubscription)
-       # azureContainerRegistry: $(azureContainerRegistry)
-        #action: 'Push an image'
-        #imageName: 'sd2411-kpi2019-client:$(tag)'
-        #includeLatestTag: true
+    - task: Docker@0
+      displayName: 'Push Client image'
+      inputs:
+        azureSubscription: $(azureSubscription)
+        azureContainerRegistry: $(azureContainerRegistry)
+        action: 'Push an image'
+        imageName: 'sd2411-kpi2019-client:$(tag)'
+        includeLatestTag: true
