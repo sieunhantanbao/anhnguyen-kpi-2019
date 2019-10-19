@@ -24,7 +24,7 @@ stages:
     pool:
       name: 'My-Azure-Pool'
     steps:
-    - task: DotNetCoreInstaller@0
+    - task: UseDotNet@2
       inputs:
         packageType: sdk
         version: 3.0.0
