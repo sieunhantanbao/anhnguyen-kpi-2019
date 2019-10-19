@@ -17,7 +17,7 @@ variables:
 
 stages:
 - stage: Build
-  displayName: Run Unit Test and Build
+  displayName: Build
   jobs: 
   - job: RunUnitTest
     displayName: Run unit test
