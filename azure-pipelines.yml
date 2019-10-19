@@ -57,4 +57,48 @@ stages:
       condition: succeededOrFailed()
       inputs:
         testRunner: VSTest
-        testResultsFiles: '**/*.trx'
+        testResultsFiles: '**/**/*.trx'
+  - job: Build
+    dependsOn: RunUnitTest
+    condition: succeeded()
+    displayName: Build Images
+    pool:
+      name: 'My-Azure-Pool'
+    steps:
+    - task: Docker@0
+      displayName: 'Build API image'
+      inputs:
+        azureSubscription: $(azureSubscription)
+        azureContainerRegistry: $(azureContainerRegistry)
+        dockerFile: Dockerfile
+        buildArguments: 'test=test --no-cache'
+        imageName: 'sd2411-kpi2019-api:$(tag)'
+        includeLatestTag: true
+    - task: Docker@0
+      displayName: 'Push API image'
+      inputs:
+        azureSubscription: $(azureSubscription)
+        azureContainerRegistry: $(azureContainerRegistry)
+        action: 'Push an image'
+        imageName: 'sd2411-kpi2019-api:$(tag)'
+        includeSourceTags: true
+        includeLatestTag: true
+    - task: Docker@0
+      displayName: 'Build Client Image'
+      inputs:
+        azureSubscription: $(azureSubscription)
+        azureContainerRegistry: $(azureContainerRegistry)
+        dockerFile: client/Dockerfile
+        buildArguments: |
+          webapiurl=$(webapiurl)
+          test=test --no-cache
+        imageName: 'sd2411-kpi2019-client:$(tag)'
+        includeLatestTag: true
+    - task: Docker@0
+      displayName: 'Push Client image'
+      inputs:
+        azureSubscription: $(azureSubscription)
+        azureContainerRegistry: $(azureContainerRegistry)
+        action: 'Push an image'
+        imageName: 'sd2411-kpi2019-client:$(tag)'
+        includeLatestTag: true
