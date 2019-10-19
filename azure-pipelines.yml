@@ -9,6 +9,7 @@ resources:
 - repo: self
 
 variables:
+  buildConfiguration: 'Release'
   tag: '$(Build.BuildId)'
   azureSubscription: 'Free Trial (a3f5bdc7-158f-41cf-a683-2ee18181b44f)'
   azureContainerRegistry: '{"loginServer":"sd2411containerregistry.azurecr.io", "id" : "/subscriptions/a3f5bdc7-158f-41cf-a683-2ee18181b44f/resourceGroups/anhnguyens_resourcegroup/providers/Microsoft.ContainerRegistry/registries/sd2411containerregistry"}'
@@ -16,10 +17,49 @@ variables:
 
 stages:
 - stage: Build
-  displayName: Build and Deploy
-  jobs:  
+  displayName: Run Unit Test and Build
+  jobs: 
+  - job: RunUnitTest
+    displayName: Run unit test
+    pool:
+      name: 'My-Azure-Pool'
+    steps:
+    - task: DotNetCoreInstaller@0
+      inputs:
+        packageType: sdk
+        version: 3.0.0
+    - script: dotnet build --configuration $(buildConfiguration)
+      displayName: 'dotnet build $(buildConfiguration)'
+    # Run all tests with "/p:CollectCoverage=true /p:CoverletOutputFormat=cobertura" to generate the code coverage file
+    - task: DotNetCoreCLI@2
+      displayName: dotnet test
+      inputs:
+        command: test
+        arguments: '--configuration $(BuildConfiguration) --logger trx /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Exclude=[xunit.*]*%2c[System.*]*'
+        projects: 'src/Tests/**/*.csproj'
+        nobuild: true
+    # Generate the report using ReportGenerator (https://github.com/danielpalme/ReportGenerator)
+    # First install the tool on the machine, then run it
+    - script: |
+        dotnet tool install -g dotnet-reportgenerator-globaltool
+        reportgenerator "-reports:$(Build.SourcesDirectory)/test/**/coverage.cobertura.xml" "-targetdir:$(Build.SourcesDirectory)/CodeCoverage" "-reporttypes:HtmlInline_AzurePipelines;Cobertura"
+        displayName: Create Code coverage report
+    # Publish the code coverage result (summary and web site)
+    # The summary allows to view the coverage percentage in the summary tab
+    # The web site allows to view which lines are covered directly in Azure Pipeline
+    - task: PublishCodeCoverageResults@1
+      displayName: Publish Code Coverage
+      inputs:
+        codeCoverageTool: Cobertura
+        summaryFileLocation: '$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml'
+        reportDirectory: '$(Build.SourcesDirectory)/CodeCoverage'
+    - task: PublishTestResults@2
+      condition: succeededOrFailed()
+      inputs:
+        testRunner: VSTest
+        testResultsFiles: '**/*.trx'
   - job: Build
-    displayName: Build and Push Images to Azure
+    displayName: Build Images
     pool:
       name: 'My-Azure-Pool'
     steps:
