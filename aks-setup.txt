@@ -1,0 +1,19 @@
+//Create resource group
+az group create --name sd2411kpi2019resourcegroup --location eastus
+
+//Create Azure Container Registry (ACR)
+//az acr create -g sd2411kpi2019resourcegroup --name sd2411kpi2019acraks --sku Basic
+
+// Create AKS Cluster
+az aks create -g sd2411kpi2019resourcegroup --name sd2411kpi2019akscluster --node-count 2 --generate-ssh-keys
+
+// Get Cluster Credential
+#az aks get-credentials -g sd2411kpi2019resourcegroup --name sd2411kpi2019akscluster
+#kubectl get nodes
+
+//Create a secret to hold the registry credentials
+#kubectl create secret docker-registry sd2411kpi2019registrysecret --docker-server=https://index.docker.io/v1/ --docker-username=sieunhantanbao --docker-password=Bichphung1 --docker-email=sieunhantanbao@gmail.com
+#kubectl describe secret
+
+
+
