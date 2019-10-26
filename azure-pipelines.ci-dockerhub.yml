@@ -12,7 +12,8 @@ variables:
   buildConfiguration: 'Release'
   deploymentFile: deployment.azure.yaml
   tag: '$(Build.BuildId)'
-  webapiurl: https://sd2411-web-api.azurewebsites.net/api
+  #webapiurl: https://sd2411-web-api.azurewebsites.net/api
+  webapiurl: http://52.188.178.90/api
 
 stages:
 - stage: Build

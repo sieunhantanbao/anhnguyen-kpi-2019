@@ -16,4 +16,7 @@ az aks create -g sd2411kpi2019resourcegroup --name sd2411kpi2019akscluster --nod
 #kubectl describe secret
 
 
+kubectl config view --raw
+
+
 
