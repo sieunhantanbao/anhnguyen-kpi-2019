@@ -1,9 +1,12 @@
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sd2411-kpi2019-api
 spec:
   replicas: 2
+  selector:
+    matchLabels:
+      app: sd2411-kpi2019-api
   template:
     metadata:
       labels:
@@ -11,7 +14,7 @@ spec:
     spec:
       containers:
       - name: sd2411-kpi2019-api
-        image: sieunhantanbao/sd2411-kpi2019-api:#{Build.BuildId}#
+        image: sieunhantanbao/sd2411-kpi2019-api:77
         ports:
         - name: http
           containerPort: 80
@@ -36,12 +39,15 @@ spec:
   selector:
     app: sd2411-kpi2019-api
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sd2411-kpi2019-client
 spec:
-  replicas: 2
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sd2411-kpi2019-client
   template:
     metadata:
       labels:
@@ -49,7 +55,7 @@ spec:
     spec:
       containers:
       - name: sd2411-kpi2019-client
-        image: sieunhantanbao/sd2411-kpi2019-client:#{Build.BuildId}#
+        image: sieunhantanbao/sd2411-kpi2019-client:latest
         ports:
         - name: http
           containerPort: 80

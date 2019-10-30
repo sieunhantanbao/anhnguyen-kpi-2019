@@ -13,7 +13,7 @@ RUN sed -i 's;https://localhost:44305/api;'$webapiurl';' src/environments/enviro
 
 RUN npm install
 
-RUN npm install typescript@3.5.3
+#RUN npm install typescript@3.5.3
 
 RUN npm run build --prod
 

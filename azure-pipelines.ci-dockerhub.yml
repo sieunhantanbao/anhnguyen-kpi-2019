@@ -14,6 +14,7 @@ variables:
   tag: '$(Build.BuildId)'
   #webapiurl: https://sd2411-web-api.azurewebsites.net/api
   webapiurl: http://52.188.178.90/api
+  agentPool: 'My-Azure-Pool'
 
 stages:
 - stage: Build
@@ -22,7 +23,7 @@ stages:
   - job: RunUnitTest
     displayName: Run unit test
     pool:
-      name: 'My-Azure-Pool'
+      name: $(agentPool)
     steps:
     - task: UseDotNet@2
       inputs:
@@ -63,7 +64,7 @@ stages:
     condition: succeeded()
     displayName: Build Images
     pool:
-      name: 'My-Azure-Pool'
+      name: $(agentPool)
     steps:
     - task: Docker@0
       displayName: 'Build API image'
@@ -81,6 +82,7 @@ stages:
         dockerRegistryConnection: 'dockerhub_cnn'
         action: 'Push an image'
         imageName: 'sieunhantanbao/sd2411-kpi2019-api:$(tag)'
+        includeLatestTag: true
     - task: Docker@0
       displayName: 'Build Client Image'
       inputs:
