@@ -1,0 +1,75 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: sd2411-kpi2019-api
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: sd2411-kpi2019-api
+    spec:
+      containers:
+      - name: sd2411-kpi2019-api
+        image: sieunhantanbao/sd2411-kpi2019-api:#{Build.BuildId}#
+        ports:
+        - name: http
+          containerPort: 80
+        - name: https
+          containerPort: 443
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sd2411-kpi2019-api
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+    name: http
+  - port: 443
+    targetPort: 443
+    protocol: TCP
+    name: https
+  selector:
+    app: sd2411-kpi2019-api
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: sd2411-kpi2019-client
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: sd2411-kpi2019-client
+    spec:
+      containers:
+      - name: sd2411-kpi2019-client
+        image: sieunhantanbao/sd2411-kpi2019-client:#{Build.BuildId}#
+        ports:
+        - name: http
+          containerPort: 80
+        - name: https
+          containerPort: 443
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sd2411-kpi2019-client
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+    name: http
+  - port: 443
+    targetPort: 443
+    protocol: TCP
+    name: https
+  selector:
+    app: sd2411-kpi2019-client

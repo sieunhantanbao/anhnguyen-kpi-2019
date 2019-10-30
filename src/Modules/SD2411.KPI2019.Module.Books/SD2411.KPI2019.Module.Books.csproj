@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\SD2411.KPI2019.Infrastructure\SD2411.KPI2019.Infrastructure.csproj" />
+    <ProjectReference Include="..\SD2411.KPI2019.Module.Core\SD2411.KPI2019.Module.Core.csproj" />
+  </ItemGroup>
+
+</Project>

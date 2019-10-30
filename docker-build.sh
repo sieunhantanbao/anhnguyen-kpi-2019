@@ -1,0 +1,1 @@
+docker build -t sd2411-kpi2019-api .

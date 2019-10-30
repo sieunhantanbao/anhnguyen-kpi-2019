@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  sd2411.client:
+    image: sd2411-kpi-2019-client
+    ports:
+      - 82:80
+    restart: always

@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\SD2411.KPI2019.Infrastructure\SD2411.KPI2019.Infrastructure.csproj" />
+    <ProjectReference Include="..\SD2411.KPI2019.Module.Books\SD2411.KPI2019.Module.Books.csproj" />
+    <ProjectReference Include="..\SD2411.KPI2019.Module.Core\SD2411.KPI2019.Module.Core.csproj" />
+    <ProjectReference Include="..\SD2411.KPI2019.Module.Users\SD2411.KPI2019.Module.Users.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.Hosting.Abstractions">
+      <HintPath>..\..\..\libs\3.0.0-preview9.19424.4\ref\netcoreapp3.0\Microsoft.AspNetCore.Hosting.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Abstractions">
+      <HintPath>..\..\..\libs\3.0.0-preview9.19424.4\ref\netcoreapp3.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

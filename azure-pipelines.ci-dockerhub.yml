@@ -1,0 +1,111 @@
+# Docker
+# Build a Docker image 
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- dev
+
+resources:
+- repo: self
+
+variables:
+  buildConfiguration: 'Release'
+  deploymentFile: deployment.azure.yaml
+  tag: '$(Build.BuildId)'
+  #webapiurl: https://sd2411-web-api.azurewebsites.net/api
+  webapiurl: http://52.188.178.90/api
+  agentPool: 'My-Azure-Pool'
+
+stages:
+- stage: Build
+  displayName: Build
+  jobs: 
+  - job: RunUnitTest
+    displayName: Run unit test
+    pool:
+      name: $(agentPool)
+    steps:
+    - task: UseDotNet@2
+      inputs:
+        packageType: sdk
+        version: 3.0.100
+    - script: dotnet build --configuration $(buildConfiguration)
+      displayName: 'Run dotnet build $(buildConfiguration)'
+    # Run all tests with "/p:CollectCoverage=true /p:CoverletOutputFormat=cobertura" to generate the code coverage file
+    - task: DotNetCoreCLI@2
+      displayName: Run dotnet test
+      inputs:
+        command: test
+        arguments: '--configuration $(BuildConfiguration) --logger trx /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Exclude=[xunit.*]*%2c[System.*]*'
+        projects: 'src/Tests/**/*.csproj'
+        nobuild: true
+    # Generate the report using ReportGenerator (https://github.com/danielpalme/ReportGenerator)
+    # First install the tool on the machine, then run it
+    - script: |
+        dotnet tool install --global dotnet-reportgenerator-globaltool
+        reportgenerator "-reports:$(Build.SourcesDirectory)/src/Tests/**/coverage.cobertura.xml" "-targetdir:$(Build.SourcesDirectory)/CodeCoverage" "-reporttypes:HtmlInline_AzurePipelines;Cobertura"
+      displayName: Create Code coverage report
+    # Publish the code coverage result (summary and web site)
+    # The summary allows to view the coverage percentage in the summary tab
+    # The web site allows to view which lines are covered directly in Azure Pipeline
+    - task: PublishCodeCoverageResults@1
+      displayName: Publish Code Coverage
+      inputs:
+        codeCoverageTool: Cobertura
+        summaryFileLocation: '$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml'
+        reportDirectory: '$(Build.SourcesDirectory)/CodeCoverage'
+    - task: PublishTestResults@2
+      condition: succeededOrFailed()
+      inputs:
+        testRunner: VSTest
+        testResultsFiles: '**/**/*.trx'
+  - job: Build
+    dependsOn: RunUnitTest
+    condition: succeeded()
+    displayName: Build Images
+    pool:
+      name: $(agentPool)
+    steps:
+    - task: Docker@0
+      displayName: 'Build API image'
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryConnection: 'dockerhub_cnn'
+        dockerFile: Dockerfile
+        buildArguments: 'test=test --no-cache'
+        imageName: 'sieunhantanbao/sd2411-kpi2019-api:$(tag)'
+        includeLatestTag: true
+    - task: Docker@0
+      displayName: 'Push API image'
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryConnection: 'dockerhub_cnn'
+        action: 'Push an image'
+        imageName: 'sieunhantanbao/sd2411-kpi2019-api:$(tag)'
+        includeLatestTag: true
+    - task: Docker@0
+      displayName: 'Build Client Image'
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryConnection: 'dockerhub_cnn'
+        dockerFile: client/Dockerfile
+        buildArguments: |
+          webapiurl=$(webapiurl)
+          test=test --no-cache
+        imageName: 'sieunhantanbao/sd2411-kpi2019-client:$(tag)'
+        includeLatestTag: true
+    - task: Docker@0
+      displayName: 'Push Client image'
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryConnection: 'dockerhub_cnn'
+        action: 'Push an image'
+        imageName: 'sieunhantanbao/sd2411-kpi2019-client:$(tag)'
+        includeLatestTag: true
+    - task: CopyFiles@2
+      displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
+      inputs:
+        Contents: $(deploymentFile)
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: drop'
