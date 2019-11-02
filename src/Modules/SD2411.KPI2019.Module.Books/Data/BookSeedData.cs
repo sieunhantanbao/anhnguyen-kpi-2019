@@ -10,7 +10,6 @@ namespace SD2411.KPI2019.Module.Books.Data
     {
         public static IEnumerable<Book> Data()
         {
-
             var books = new List<Book>
             {
                 // Caterogy 1
@@ -86,6 +85,7 @@ namespace SD2411.KPI2019.Module.Books.Data
                     PublishedDate = new DateTime(2015,2,1),
                     BookCategoryId = 1
                 },
+                // Category 2
                 new Book
                 {
                     Id = 5,
@@ -120,7 +120,7 @@ namespace SD2411.KPI2019.Module.Books.Data
                     Dimensions ="0.8 x 5.9 x 9.1 (inches)",
                     ImageUrl ="https://img.thriftbooks.com/api/images/l/258268f1c457bfdc20dcc186f0f470062551877b.jpg",
                     PublishedDate = new DateTime(2010,11,1),
-                    BookCategoryId = 1
+                    BookCategoryId = 2
                 },
                 new Book
                 {
@@ -138,7 +138,7 @@ namespace SD2411.KPI2019.Module.Books.Data
                     Dimensions ="1.1 x 6.4 x 9.3 (inches)",
                     ImageUrl ="https://img.thriftbooks.com/api/images/l/15f48f64ed3486632e3f6cda5fa64890a65ca9b9.jpg",
                     PublishedDate = new DateTime(2007,9,1),
-                    BookCategoryId = 1
+                    BookCategoryId = 2
                 },
                 new Book
                 {
@@ -156,7 +156,7 @@ namespace SD2411.KPI2019.Module.Books.Data
                     Dimensions ="1.1 x 4.3 x 7.5 (inches)",
                     ImageUrl ="https://img.thriftbooks.com/api/images/l/7da997e4bfef47f6429c9d59556a4dd96af2d61e.jpg",
                     PublishedDate = new DateTime(2017,4,1),
-                    BookCategoryId = 1
+                    BookCategoryId = 2
                 },
                 new Book
                 {
@@ -174,7 +174,7 @@ namespace SD2411.KPI2019.Module.Books.Data
                     Dimensions ="7.1 x 0.7 x 5.0 (inches)",
                     ImageUrl ="https://images-na.ssl-images-amazon.com/images/I/41OaVJC8efL._SL300_.jpg",
                     PublishedDate = new DateTime(2011,5,1),
-                    BookCategoryId = 1
+                    BookCategoryId = 2
                 },
                 new Book
                 {
@@ -192,7 +192,7 @@ namespace SD2411.KPI2019.Module.Books.Data
                     Dimensions ="0.9 x 5.5 x 8.3 (inches)",
                     ImageUrl ="https://img.thriftbooks.com/api/images/l/b67cd4ea2eb90f1b3553f5df371db4fe36935b03.jpg",
                     PublishedDate = new DateTime(2007,4,1),
-                    BookCategoryId = 1
+                    BookCategoryId = 2
                 },
 
                 // Category 2

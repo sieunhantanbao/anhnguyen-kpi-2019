@@ -12,7 +12,7 @@ export const ManagementRoutes: Routes = [
         children: [
             {
                 path: '',
-                redirectTo: 'dashboard',
+                redirectTo: 'book-management',
                 pathMatch: 'full'
             },
             {
