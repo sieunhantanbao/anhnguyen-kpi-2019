@@ -21,11 +21,35 @@ For testing only
 > [http://localhost:82](http://localhost:82) (sieunhantanbao@gmail.com/Admin123!@#)
 ### Try with your self
 #### Prerequisites
-- Visual Studio 2019 version 16.2 or later which support [.NET Core 3.0](https://dotnet.microsoft.com/download/dotnet-core)
+- Visual Studio 2019 version 16.2 or later which support [.NET Core 3.0](https://dotnet.microsoft.com/download/dotnet-core) or Visual Studio Code.
 - SQL Server
 #### Steps to run
-TBD
+***By Visual Studio 2019***
+
+- Step 1:  Update the ConnectionString in the file 
+> `\src\SD2411.KPI2019.HostStandard\appsettings.json`
+- Step 2: Open `Package Manager Console`and make sure the Default project `Hosts\SD2411.KPI2019.HostStandard` is selected, then run command:
+> `Update-Database`
+- Step 3: Make sure the project `SD2411.KPI2019.HostStandard`is as Startup Project, then press F5 to run back-end API.
+- Step 4: Update the **baseUrl** to match with the back-end API URL that you see at step 3 in the **environment.prod.ts** file
+> `\client\src\environments\environment.prod.ts`
+- Step 5: Navigate to folder `client` then run bellow commands
+> `npm install`
+> `npm run start-dev`
+- Step 6: Open Google Chrome and go to [http://localhost:4200](http://localhost:4200) and login with sieunhantanbao@gmail.com/Admin123!@#. You may need to run Google Chrome in [disabled security mode ](https://stackoverflow.com/questions/24290149/creating-google-chrome-shortcut-with-disable-web-security) (due to CORS issue).
+ 
+***By Visual Studio Code***
+- Step 1: At the root folder type  `dotnet build`  to build the `SD2411.KPI2019.sln` solution.
+- Step 2:  Install `Entity Framework Core Tools` by run the command below
+> `dotnet tool install --global dotnet-ef --version 3.0.0`
+- Step 3:  Go to the `src\SD2411.KPI2019.HostStandard` open the `appsettings.json` file, update the connection string, then type  `dotnet ef database update`  to run migration. Then type  `dotnet run`  to launch the back-end API.
+- Step 4: Update the **baseUrl** to match with the back-end API URL that you see at step 3 in the **environment.prod.ts** file
+> `\client\src\environments\environment.prod.ts`
+- Step 5: Navigate to folder `client` then run bellow commands
+> `npm install`
+> `npm run start-dev`
+- Step 6: Open Google Chrome and go to [http://localhost:4200](http://localhost:4200) and login with sieunhantanbao@gmail.com/Admin123!@#. You may need to run Google Chrome in [disabled security mode ](https://stackoverflow.com/questions/24290149/creating-google-chrome-shortcut-with-disable-web-security) (due to CORS issue).
 ### Technologies and frameworks used
-- ASP.NET CORE 3.0
+- ASP.NET Core 3.0
 - Entity Framework Core 3.0
 - Angular 8.2.2
