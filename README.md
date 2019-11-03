@@ -35,6 +35,7 @@ For testing only
 > `\client\src\environments\environment.prod.ts`
 - Step 5: Navigate to folder `client` then run bellow commands
 > `npm install`
+
 > `npm run start-dev`
 - Step 6: Open Google Chrome and go to [http://localhost:4200](http://localhost:4200) and login with sieunhantanbao@gmail.com/Admin123!@#. You may need to run Google Chrome in [disabled security mode ](https://stackoverflow.com/questions/24290149/creating-google-chrome-shortcut-with-disable-web-security) (due to CORS issue).
  
@@ -47,6 +48,7 @@ For testing only
 > `\client\src\environments\environment.prod.ts`
 - Step 5: Navigate to folder `client` then run bellow commands
 > `npm install`
+
 > `npm run start-dev`
 - Step 6: Open Google Chrome and go to [http://localhost:4200](http://localhost:4200) and login with sieunhantanbao@gmail.com/Admin123!@#. You may need to run Google Chrome in [disabled security mode ](https://stackoverflow.com/questions/24290149/creating-google-chrome-shortcut-with-disable-web-security) (due to CORS issue).
 ### Technologies and frameworks used
