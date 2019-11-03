@@ -64,11 +64,16 @@ namespace SD2411.KPI2019.HostStandard
             services.AddCustomizedMvc(GlobalConfiguration.Modules);
 
             // Register services from Module
-            ServiceProvider sp = services.BuildServiceProvider();
-            var moduleInitilizers = sp.GetServices<IModuleInitializer>();
-            foreach (var moduleInitilizer in moduleInitilizers)
+            foreach (var module in GlobalConfiguration.Modules)
             {
-                moduleInitilizer.ConfigureServices(services);
+                var moduleInitializerType = module.Assembly.GetTypes()
+                   .FirstOrDefault(t => typeof(IModuleInitializer).IsAssignableFrom(t));
+                if ((moduleInitializerType != null) && (moduleInitializerType != typeof(IModuleInitializer)))
+                {
+                    var moduleInitializer = (IModuleInitializer)Activator.CreateInstance(moduleInitializerType);
+                    services.AddSingleton(typeof(IModuleInitializer), moduleInitializer);
+                    moduleInitializer.ConfigureServices(services);
+                }
             }
             // Add cors
             services.AddCors(options =>

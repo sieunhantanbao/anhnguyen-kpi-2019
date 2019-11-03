@@ -21,7 +21,7 @@ For testing only
 > [http://localhost:82](http://localhost:82) (sieunhantanbao@gmail.com/Admin123!@#)
 ### Try with your self
 #### Prerequisites
-- Visual Studio 2019 version 16.2 or later which support [.NET Core 3.0](https://dotnet.microsoft.com/download/dotnet-core) or Visual Studio Code.
+- Visual Studio 2019 version 16.2 or later which support [.NET Core 3.0](https://dotnet.microsoft.com/download/dotnet-core) AND/OR Visual Studio Code.
 - SQL Server
 #### Steps to run
 ***By Visual Studio 2019***
