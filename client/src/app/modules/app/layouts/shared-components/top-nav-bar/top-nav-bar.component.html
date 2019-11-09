@@ -4,11 +4,11 @@
         <a class="navbar-brand" href="#">SD2411-KPI-2019</a>
       </div>
       <ul class="nav navbar-nav">
-        <li class="active"><a [routerLink]="['/management/dashboard']">Home</a></li>
-        <li><a [routerLink]="['/management/book-management']">List Books</a></li>
+        <li [routerLink]="['/management/book-management']" routerLinkActive="active"><a [routerLink]="['/management/book-management']">Home</a></li>
+        <li [routerLink]="['/management/dashboard']" routerLinkActive="active"><a [routerLink]="['/management/dashboard']">My books</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li *ngIf="isAuthenticated"><a [routerLink]="['/management/my-profile']"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
+        <li *ngIf="isAuthenticated"><a [routerLink]="['/management/my-profile']" routerLinkActive="active"><span class="font-weight-bold">Welcome, {{user.email}}</span></a></li>
         <li *ngIf="isAuthenticated"><a href="#" (click)="logout()"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
       </ul>
     </div>

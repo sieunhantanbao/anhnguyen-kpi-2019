@@ -9,7 +9,7 @@ ARG webapiurl
 
 RUN echo $webapiurl
 
-RUN sed -i 's;https://localhost:44305/api;'$webapiurl';' src/environments/environment.prod.ts 
+RUN sed -i 's;https://localhost:50000/api;'$webapiurl';' src/environments/environment.prod.ts 
 
 RUN npm install
 

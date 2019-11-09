@@ -64,11 +64,16 @@ namespace SD2411.KPI2019.HostStandard
             services.AddCustomizedMvc(GlobalConfiguration.Modules);
 
             // Register services from Module
-            ServiceProvider sp = services.BuildServiceProvider();
-            var moduleInitilizers = sp.GetServices<IModuleInitializer>();
-            foreach (var moduleInitilizer in moduleInitilizers)
+            foreach (var module in GlobalConfiguration.Modules)
             {
-                moduleInitilizer.ConfigureServices(services);
+                var moduleInitializerType = module.Assembly.GetTypes()
+                   .FirstOrDefault(t => typeof(IModuleInitializer).IsAssignableFrom(t));
+                if ((moduleInitializerType != null) && (moduleInitializerType != typeof(IModuleInitializer)))
+                {
+                    var moduleInitializer = (IModuleInitializer)Activator.CreateInstance(moduleInitializerType);
+                    services.AddSingleton(typeof(IModuleInitializer), moduleInitializer);
+                    moduleInitializer.ConfigureServices(services);
+                }
             }
             // Add cors
             services.AddCors(options =>
@@ -85,6 +90,23 @@ namespace SD2411.KPI2019.HostStandard
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SD2411 KPI API", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please enter into field the word 'Bearer' following by space and JWT",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+                        },
+                        new List<string>{ "" }
+                    }
+                });
             });
 
             //services.AddCors();
@@ -129,7 +151,6 @@ namespace SD2411.KPI2019.HostStandard
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "SD2411 KPI V1 Docs");
-
             });
 
             //app.UseCors(builder => builder
