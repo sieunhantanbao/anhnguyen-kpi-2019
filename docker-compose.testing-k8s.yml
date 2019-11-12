@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+  sd2411.kpi.api:
+    build:
+        context: .
+        dockerfile: Dockerfile
+    image: sieunhantanbao/sd2411-kpi2019-api-testing-k8s
+    ports: 
+      - 81:80
+    restart: always
+    command: bash -c "dotnet /app/SD2411.KPI2019.HostStandard.dll"
+  sd2411.kpi.client:
+    build:
+        context: ./client
+        dockerfile: Dockerfile
+        args:
+           - webapiurl=http://sd2411-kpi2019-api-testing-k8s/api
+    image: sieunhantanbao/sd2411-kpi2019-client-testing-k8s
+    ports:
+      - 82:80
+    restart: always

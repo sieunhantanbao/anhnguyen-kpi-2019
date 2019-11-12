@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "sd2411-kpi2019-client.fullname" . }}
+  labels:
+{{ include "sd2411-kpi2019-client.labels" . | indent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: {{ include "sd2411-kpi2019-client.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
