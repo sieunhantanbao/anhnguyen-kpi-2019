@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "sd2411-kpi2019-api.fullname" . }}-test-connection"
+  labels:
+{{ include "sd2411-kpi2019-api.labels" . | indent 4 }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args:  ['{{ include "sd2411-kpi2019-api.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never
