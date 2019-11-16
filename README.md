@@ -2,7 +2,7 @@
 
 ### High level architecture
 
-![SD2411-KPI - Architecture](https://raw.githubusercontent.com/sieunhantanbao/anhnguyen-kpi-2019/master/architecture.png)
+![SD2411-KPI - Architecture](https://raw.githubusercontent.com/sieunhantanbao/anhnguyen-kpi-2019/master/sd2411-architecture.png)
 
 ### Build Status
 
