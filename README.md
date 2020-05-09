@@ -25,7 +25,7 @@ For testing only
 > [http://localhost:82](http://localhost:82) (sieunhantanbao@gmail.com/Admin123!@#)
 ### Try with your self
 #### Prerequisites
-- Visual Studio 2019 version 16.2 or later which support [.NET Core 3.0](https://dotnet.microsoft.com/download/dotnet-core) AND/OR Visual Studio Code.
+- Visual Studio 2019 version 16.2 or later which support [.NET Core 3.1](https://dotnet.microsoft.com/download/dotnet-core) AND/OR Visual Studio Code.
 - SQL Server
 #### Steps to run
 ***By Visual Studio 2019***
@@ -56,6 +56,6 @@ For testing only
 > `npm run start-dev`
 - Step 6: Open Google Chrome and go to [http://localhost:4200](http://localhost:4200) and login with sieunhantanbao@gmail.com/Admin123!@#. You may need to run Google Chrome in [disabled security mode ](https://stackoverflow.com/questions/24290149/creating-google-chrome-shortcut-with-disable-web-security) (due to CORS issue).
 ### Technologies and frameworks used
-- ASP.NET Core 3.0
-- Entity Framework Core 3.0
+- ASP.NET Core 3.1
+- Entity Framework Core 3.1
 - Angular 8.2.2
