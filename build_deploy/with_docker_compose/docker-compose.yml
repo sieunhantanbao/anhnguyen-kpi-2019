@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+  sd2411.api:
+    build:
+        context: ../../
+        dockerfile: ./build_deploy/dockerfiles/BackendDockerfile
+    image: sieunhantanbao/sd2411-kpi2019-api:latest
+    ports: 
+      - 81:80
+    restart: unless-stopped
+    volumes: 
+        - ../environments/appsettings.json:/app/appsettings.json
+    command: bash -c "dotnet /app/SD2411.KPI2019.HostStandard.dll"
+  sd2411.client:
+    build:
+        context: ../../client/
+        dockerfile: ../build_deploy/dockerfiles/ClientDockerfile
+        args:
+           - webapiurl=https://api-local.mycompany.vn:8181/hoststandard
+    image: sieunhantanbao/sd2411-kpi2019-client:latest
+    depends_on: 
+        - sd2411.api
+    ports:
+      - 82:80
+    restart: always
