@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    ports: 
+      - 1434:1433
+    environment:
+      SA_PASSWORD: "Admin123!@#"
+      ACCEPT_EULA: "Y"

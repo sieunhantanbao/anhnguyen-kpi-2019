@@ -1,23 +1,51 @@
 # VARIABLES
 $tykGatewaySecret = "HkGtmaCEJxkBxvxihLwwFNlE4RYMjnwV"
 
-#Deploy Application
+# Replace tokens
+$host_ip = (
+            Get-NetIPConfiguration |
+            Where-Object {
+                $_.IPv4DefaultGateway -ne $null -and
+                $_.NetAdapter.Status -ne "Disconnected"
+            }
+        ).IPv4Address.IPAddress
+
+((Get-Content -path ..\tyk\conf\tokens\tyk.conf -Raw) -replace '@@hostip@@',"$host_ip") | Set-Content -Path ..\tyk\conf\tyk.conf
+
+((Get-Content -path ..\environments\tokens\appsettings.json -Raw) -replace '@@hostip@@',"$host_ip") | Set-Content -Path ..\environments\appsettings.json
+
+# Deploy Database
+write-host -ForegroundColor Yellow "----Deploying the database-----"
+write-host ""
+try
+{
+    docker-compose -f ".\docker-compose.db.yml" down
+    docker-compose -f ".\docker-compose.db.yml" up -d 
+}
+catch 
+{
+    Write-Error "Error when deploying the database. File .\with_docker_compose\docker-compose.db.yml"
+    write-host ""
+    read-host -Prompt "Please press Enter to close this window"
+    exit 1
+}
+
 write-host -ForegroundColor Yellow "----Deploying the application-----"
 write-host ""
 try
 {
     docker-compose -f ".\docker-compose.yml" down
-    docker-compose -f ".\docker-compose.yml" up -d 
+    docker-compose -f ".\docker-compose.yml" up -d --build
 }
 catch 
 {
     Write-Error "Error when deploying the application. File .\with_docker_compose\docker-compose.yml"
     write-host ""
     read-host -Prompt "Please press Enter to close this window"
-    exit 1
+    exit 2
 }
 
-#Deploy and Setup Tyk
+# Deploy and Setup Tyk
 write-host -ForegroundColor Yellow "----Deploying the Tyk Gateway-----"
 write-host ""
 try
@@ -30,7 +58,7 @@ catch
     Write-Error "Error when deploying the Tyk Gateway. File .\with_docker_compose\docker-compose.tyk.yml"
     write-host ""
     read-host -Prompt "Please press Enter to close this window"
-    exit 2
+    exit 3
 }
 
 write-host -ForegroundColor Yellow "----Setting up the Tyk Gateway-----"
@@ -50,7 +78,7 @@ catch
     write-error "Error when setting up TYK"
     write-host ""
     read-host -Prompt "Please press Enter to close this window"
-    exit 3
+    exit 4
 }
 
 write-host -ForegroundColor Yellow "----Importing the Tyk Gateway APIs definitions-----"
@@ -69,7 +97,7 @@ catch
     write-error "Error when importing the TYK APIs definitions"
     write-host ""
     read-host -Prompt "Please press Enter to close this window"
-    exit 4
+    exit 5
 }
 
 echo "Client URL: http://localhost:82"

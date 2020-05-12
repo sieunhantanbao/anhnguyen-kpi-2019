@@ -6,6 +6,7 @@ services:
         context: ../../
         dockerfile: ./build_deploy/dockerfiles/BackendDockerfile
     image: sieunhantanbao/sd2411-kpi2019-api:latest
+    container_name: sd2411-api
     ports: 
       - 81:80
     restart: unless-stopped
@@ -16,11 +17,13 @@ services:
     build:
         context: ../../client/
         dockerfile: ../build_deploy/dockerfiles/ClientDockerfile
-        args:
-           - webapiurl=https://api-local.mycompany.vn:8181/hoststandard
     image: sieunhantanbao/sd2411-kpi2019-client:latest
+    container_name: sd2411-client
     depends_on: 
         - sd2411.api
     ports:
       - 82:80
     restart: always
+    volumes:
+        - ../environments/default.conf:/etc/nginx/conf.d/default.conf
+        - ../environments/environment.js:/usr/share/nginx/html/assets/environment.js

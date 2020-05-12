@@ -21,5 +21,4 @@
 TestResults/
 client/
 *.xlsx
-build_deploy/
 *.pptx

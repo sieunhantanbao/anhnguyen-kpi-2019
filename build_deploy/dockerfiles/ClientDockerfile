@@ -5,11 +5,17 @@ WORKDIR /app
 
 COPY . ./
 
-ARG webapiurl
+# COPY environment file
 
-RUN echo $webapiurl
+RUN echo pwd
 
-RUN sed -i 's;https://localhost:44300/api;'$webapiurl';' src/environments/environment.prod.ts 
+# COPY ../environments/environment.js ./src/assets/environment.js
+
+# ARG webapiurl
+
+# RUN echo $webapiurl
+
+# RUN sed -i 's;https://localhost:44300/api;'$webapiurl';' src/environments/environment.prod.ts 
 
 RUN npm install
 

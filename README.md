@@ -1,20 +1,21 @@
+
 # ANHNGUYEN - KPI - 2019
 
-### High level architecture
+## High level architecture
 
 ![SD2411-KPI - Architecture](https://raw.githubusercontent.com/sieunhantanbao/anhnguyen-kpi-2019/master/sd2411-architecture.png)
 
-### Build Status
+## Build Status
 
 
 | Build server    | Platform       | Status      |
 |-----------------|----------------|-------------|
 | Azure Pipelines | Docker         |[![Build status](https://dev.azure.com/nguyensieuanh/anhnguyen-kpi-2019/_apis/build/status/GitHub_Source/Source%20GitHub%20CI%20YML)](https://dev.azure.com/nguyensieuanh/anhnguyen-kpi-2019/_build/latest?definitionId=4)
 
-### Online Demo (Azure) [Website is stopped]
+## Online Demo (Azure) [Website is stopped]
 - ~~https://sd2411-kpi-client.azurewebsites.net (sieunhantanbao@gmail.com/Admin123!@#)~~
 
-### Docker
+## Docker
 For testing only
 
 - Step 1: Using below command to run API
@@ -23,7 +24,21 @@ For testing only
 > `docker run -p 82:80 sieunhantanbao/sd2411-kpi2019-client-testing`
 - Step 3: Open Google Chrome in [disabled security mode ](https://stackoverflow.com/questions/24290149/creating-google-chrome-shortcut-with-disable-web-security) (due to CORS issue) and visit
 > [http://localhost:82](http://localhost:82) (sieunhantanbao@gmail.com/Admin123!@#)
-### Try with your self
+## Try with your self
+### With Docker
+#### Prerequisites
+- Docker is insalled
+- [Python3.x](https://realpython.com/installing-python/) is installed on bash (Linux Subsystem on Window) 
+#### Steps to run
+- Clone source code
+> `git clone https://github.com/sieunhantanbao/anhnguyen-kpi-2019.git`
+- Open Powershell Terminal then run 2 commands below
+> `cd anhnguyen-kpi-2019/build_deploy/with_docker_compose`
+> `.\deploy.ps1`
+- Add below line to the hosts file
+> `127.0.0.1 api-local.mycompany.vn`
+- Waiting for the deploying complete, then open Google Chrome and go to [http://localhost:82](http://localhost:82/) and login with sieunhantanbao@gmail.com/Admin123!@#
+### With IDEs
 #### Prerequisites
 - Visual Studio 2019 version 16.2 or later which support [.NET Core 3.1](https://dotnet.microsoft.com/download/dotnet-core) AND/OR Visual Studio Code.
 - SQL Server

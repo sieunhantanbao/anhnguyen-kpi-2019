@@ -10,6 +10,8 @@ WORKDIR /src
 
 COPY src/ ./
 
+WORKDIR /src
+COPY build_deploy/environments/appsettings.json ./SD2411.KPI2019.HostStandard/
 # Install donet ef tool
 RUN dotnet tool install dotnet-ef --global --version 3.1.0
 ENV PATH="${PATH}:/root/.dotnet/tools"

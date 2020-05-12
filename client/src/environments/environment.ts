@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl:'https://localhost:44300/api'
+    // This information is getting from the /assets/environment.js file
+  baseUrl: window["env"]["apiUrl"] || "default",
 };
 
 /*
